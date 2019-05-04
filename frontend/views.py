@@ -7,3 +7,10 @@ def index(request):
         'page_title': "รายการคำขอลางานของฉัน",
     }
     return render(request, template_name='index.html', context=context)
+
+def signin(request):
+
+    context = {
+        'page_title': "รายการคำขอลางานของฉัน",
+    }
+    return render(request, template_name='signin.html', context=context)

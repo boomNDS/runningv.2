@@ -202,16 +202,18 @@
                     </div>
                 </div>
             </div>
-            <div class="section fp-auto-height-responsive" id="Category">
+            <div class="section fp-auto-height-responsive" id="Category" class="cato">
                 <div class="container is-fluid">
                     <div class="columns is-multiline is-mobile">
                         <div class="column is-12">
-                            <h1>Category</h1>
+                            <h1 style="font-size: 2.5rem;
+                            color: #fff;">Category</h1>
                         </div>
-                        <div class="column is-4" v-for="i in 6" :key="i">
-                            <cardcategory></cardcategory>
+                        <div class="column is-4" v-for="i in Competition" :key="i">
+                            <cardcategory :Competition="i"></cardcategor>
                         </div>
-                        <div class="column is-12">
+                        <div class="column is-12" style="color: #fff;
+                        font-size: 1.2rem">
                             <p>ประเภททั่วไป - ชาย 8 คน หรือ ชาย 7 คน หญิง 1 คน</p>
                             <p>ประเภทผสม - ชายไม่เกิน 6 คน หรือ หญิงไม่ต่ำกว่า 2 คน</p>
                         </div>
@@ -461,16 +463,79 @@
         el: '#app',
         data: {
             title: 'Welcome to My Journal',
-            races:[
-                [1,9,17],
-                [2,10,18],
-                [3,11,19],
-                [4,12,20],
-                [5,13,21],
-                [6,14,22],
-                [7,15,23],
-                [8,16,24],
-            ]
+            races: [
+                [1, 9, 17],
+                [2, 10, 18],
+                [3, 11, 19],
+                [4, 12, 20],
+                [5, 13, 21],
+                [6, 14, 22],
+                [7, 15, 23],
+                [8, 16, 24],
+            ],
+            Competition: [
+                {
+                title: "จูเนียร์",
+                card: [
+                    {
+                    name: 'ทั่วไป',
+                    age: "280 ปี"
+                },
+                {
+                    name: 'ผสม',
+                    age: "260 ปี"
+                },
+            ],
+            },
+            {
+                title: "ซุปเปอร์จูเนียร์",
+                card: [
+                    {
+                    name: 'ทั่วไป',
+                    age: "281–360 ปี"
+                },
+                {
+                    name: 'ผสม',
+                    age: "261–340 ปี"
+                },
+            ],
+            },
+            {
+                title: "ซีเนียร์",
+                card: [
+                    {
+                    name: 'ทั่วไป',
+                    age: "361–440 ปี"
+                },
+                {
+                    name: 'ผสม',
+                    age: "341–420 ปี"
+                },
+            ],
+            },
+            {
+                title: "ซูเปอร์ซีเนียร์",
+                card: [
+                    {
+                    name: 'ทั่วไป',
+                    age: "441 ปีขึ้นไป"
+                },
+                {
+                    name: 'ผสม',
+                    age: "421 ปีขึ้นไป"
+                },
+            ],
+            },
+            {
+                title: "หญิง",
+                card: [
+                    {
+                    name: 'ทั่วไป',
+                    age: "ไม่จำกัดอายุ"
+                }
+            ],
+            },
+        ]
         }
     })
 </script>
