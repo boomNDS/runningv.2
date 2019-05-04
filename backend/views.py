@@ -6,4 +6,4 @@ def index(request):
     context = {
         'page_title': "รายการคำขอลางานของฉัน",
     }
-    return render(request, template_name='index.html', context=context)
+    return render(request, template_name='aindex.html', context=context)
