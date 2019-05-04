@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'bulma/css/bulma.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fullpage/fullpage.min.css' %}">
+    <script src="https://unpkg.com/vue"></script>
+    <title>Running thailand</title>
+</head>
+
+<body>
+    <div id="app">
+        <div id="fullpage">
+            <div class="section fp-auto-height-responsive" id="Home">
+            </div>
+            <div class="section fp-auto-height-responsive" id="News">
+            </div>
+            <div class="section fp-auto-height-responsive" id="AllTeam">
+            </div>
+            <div class="section fp-auto-height-responsive" id="Rule1">
+            </div>
+            <div class="section fp-auto-height-responsive" id="Rule2">
+            </div>
+            <div class="section fp-auto-height-responsive" id="Category">
+            </div>
+            <div class="section fp-auto-height-responsive" id="Map">
+            </div>
+            <div class="section fp-auto-height-responsive" id="Schedule">
+            </div>
+            <div class="section fp-auto-height-responsive" id="Awards">
+            </div>
+            <div class="section fp-auto-height-responsive" id="Photos">
+            </div>
+            <div class="section fp-auto-height-responsive" id="Sponsor">
+            </div>
+            <div class="section fp-auto-height-responsive" id="Contact">
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="{% static 'fullpage/fullpage.min.js' %}"></script>
+<script>
+    var myFullpage = new fullpage('#fullpage', {
+        anchors: ['Home', 'News', 'AllTeam', 'Rule1', 'Rule2', 'Category', 'Map', 'Schedule', 'Awards',
+            'Photos', 'Sponsor', 'Contact'
+        ],
+        sectionsColor: [
+            "#AF2F30",
+            "#E6DFD5",
+            "#AF2F30",
+            "#E6DFD5",
+            "#E6DFD5",
+            "#AF2F30",
+            "#E6DFD5",
+            "#AF2F30",
+            "#E6DFD5",
+            "#AF2F30",
+            "#E6DFD5",
+            "#AF2F30"
+        ],
+        autoScrolling: true,
+        scrollHorizontally: true,
+        navigation: true,
+        navigationPosition: 'right',
+        navigationTooltips: ['Home', 'News', 'AllTeam', 'Rule1', 'Rule2', 'Category', 'Map', 'Schedule',
+            'Awards',
+            'Photos', 'Sponsor', 'Contact'
+        ],
+        responsiveWidth: 900,
+        afterResponsive: function (isResponsive) {}
+    });
+
+    //methods
+    fullpage_api.setAllowScrolling(false);
+</script>
+<script>
+        new Vue({
+          delimiters: ['[[', ']]'],
+          el: '#app',
+          data: {
+            title: 'Welcome to My Journal'
+          }
+        })
+        </script>
+</html>
