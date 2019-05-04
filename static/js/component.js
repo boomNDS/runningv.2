@@ -95,7 +95,7 @@ Vue.component('Timer', {
   Vue.component('rule', {
     props: ['num', 'races'],
       template: `<div class="container is-fluid" id="RunnerRule">
-      <div class="columns is-multiline is-centered runner">
+      <div class="columns is-multiline runner">
         <div class="column is-4">
           <h1 class="title">คนที่</h1>
           <p class="num">{{num}}</p>

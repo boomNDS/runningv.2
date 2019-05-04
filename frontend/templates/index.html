@@ -161,7 +161,22 @@
                                 24 ช่วง ประมาณช่วงละ 6 กิโลเมตรเศษ ผู้วิ่งในทีม 8 คน วิ่งคนละ 3 ช่วง รวม 18 กิโลเมตร</p>
                         </div>
                         <div class="column is-3" v-for="i in 8" :key="i">
-                            <rule :num="i" :races="races[i-1]"></rule>
+                            <div class="columns RunnerRule">
+                                <div class="column columns is-multiline is-4">
+                                    <p class="column is-12" style="font-size: 1.6rem;">
+                                        คนที่
+                                    </p>
+                                    <p class="column is-12" style="font-size: 2.5rem; text-align:center;">
+                                        [[i]]
+                                    </p>
+                                </div>
+                                <div class="column is-8" style="font-size: 1.6rem;">
+                                    <p>จะต้องวิ่งช่วง</p>
+                                    <div class="columns">
+                                        <div class="column is-4 go" v-for="j in races[i-1]" :key="i">[[j]]</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -210,7 +225,8 @@
                             color: #fff;">Category</h1>
                         </div>
                         <div class="column is-4" v-for="i in Competition" :key="i">
-                            <cardcategory :Competition="i"></cardcategor>
+                            <cardcategory :Competition="i">
+                                </cardcategor>
                         </div>
                         <div class="column is-12" style="color: #fff;
                         font-size: 1.2rem">
@@ -230,21 +246,22 @@
                             <img v-img:Map src="{% static 'img/Map/map1.png' %}">
                         </div>
                         <div class="column is-7 columns is-multiline">
-                            <div class="column is-1 runner" v-for="i in 8" :key="i">
-                                <p>[[i]]</p>
+                            <div :class="[{ runner_sel: i.is_sel }, 'column','is-1','runner']" v-for="i in runmap"
+                                :key="i.num">
+                                <p @click="runmap_sel(i)">[[i.num]]</p>
                             </div>
                             <div class="column is-3">
-                                <p>นักวิ่งคนที่ 1</p>
+                                <p>นักวิ่งคนที่ [[mapall[map_sel].num]]</p>
                             </div>
                             <div class="column is-9">
                                 <p>จุดเปลี่ยนผลัด</p>
                             </div>
-                            <div class="column is-12 columns is-multiline" v-for="i in 3" :key="i">
+                            <div class="column is-12 columns is-multiline" v-for="i in mapall[map_sel].round" :key="i">
                                 <div class="column is-3">
-                                    <p>1st Round</p>
+                                    <p>[[i.title]]</p>
                                 </div>
                                 <div class="column is-9">
-                                    <p>อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์</p>
+                                    <p>[[i.name]]</p>
                                 </div>
                             </div>
                             <div class="column is-12">
@@ -261,21 +278,29 @@
                             <h1>Schedule</h1>
                         </div>
                         <div class="column is-6 date">
-                            <h2 class="month">Saturday</h2>
-                            <h1 class="day">8</h1>
-                            <h2 class="month">December</h2>
+                            <h2 class="month">[[fulldays[day_sel].whatdate]]</h2>
+                            <h1 class="day">[[fulldays[day_sel].date]]</h1>
+                            <h2 class="month">[[fulldays[day_sel].month]]</h2>
                             <div class="columns is-multiline date_all is-centered">
-                                <div class="date_select column is-2">
-                                    <p class="date_detail">8</p>
-                                    <p class="date_detail">Dec</p>
-                                </div>
-                                <div class="date_select column is-2">
-                                    <p class="date_detail">9</p>
-                                    <p class="date_detail">Dec</p>
+                                <div @click="dateday_sel(i)"
+                                    :class="[{ doneday: i.is_sel },'date_select','column','is-2']" v-for="i in days"
+                                    :key="i">
+                                    <p class="date_detail">[[i.date]]</p>
+                                    <p class="date_detail">[[i.month]]</p>
                                 </div>
                             </div>
                         </div>
                         <div class="column is-6">
+                            <div class="columns is-multiline is-mobile">
+                                <div class="column is-12 columns is-multiline is-mobile" id="datedetail" v-for="i in timeline[day_sel]" :key="i" style="margin-top: 20px;">
+                                    <div class="column is-12">
+                                        <p>[[i.time]]</p>
+                                    </div>
+                                    <div class="column is-12">
+                                        <p>[[i.detail]]</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -397,7 +422,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/allteam.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/cardcegory.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/RunnerRule.css' %}">
 <script>
     var myFullpage = new fullpage('#fullpage', {
         anchors: ['Home', 'News', 'AllTeam', 'Rule1', 'Rule2', 'Category', 'Map', 'Schedule', 'Awards',
@@ -463,6 +487,178 @@
         el: '#app',
         data: {
             title: 'Welcome to My Journal',
+            day_sel: 0,
+            map_sel: 0,
+            mapall: [{
+                    num: 1,
+                    round: [{
+                            title: '1st Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '9th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '17th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                    ],
+                    url: 'run1.png'
+                },
+                {
+                    num: 2,
+                    round: [{
+                            title: '2rd Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '10th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '18th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                    ],
+                    url: 'run1.png'
+                },
+                {
+                    num: 3,
+                    round: [{
+                            title: '3st Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '11th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '19th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                    ]
+                },
+                {
+                    num: 4,
+                    round: [{
+                            title: '4th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '12th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '20th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                    ],
+                    url: 'run1.png'
+                },
+                {
+                    num: 5,
+                    round: [{
+                            title: '5th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '13th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '21th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                    ],
+                    url: 'run1.png'
+                },
+                {
+                    num: 6,
+                    round: [{
+                            title: '6th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '14th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '22th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                    ],
+                    url: 'run1.png'
+                },
+                {
+                    num: 7,
+                    round: [{
+                            title: '7th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '15th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '23th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                    ],
+                    url: 'run1.png'
+                },
+                {
+                    num: 8,
+                    round: [{
+                            title: '8th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '16th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                        {
+                            title: '24th Round',
+                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                        },
+                    ],
+                    url: 'run1.png'
+                },
+            ],
+            runmap: [
+                {
+                    num: 1,
+                    is_sel: true
+                },
+                {
+                    num: 2,
+                    is_sel: false
+                },
+                {
+                    num: 3,
+                    is_sel: false
+                },
+                {
+                    num: 4,
+                    is_sel: false
+                },
+                {
+                    num: 5,
+                    is_sel: false
+                },
+                {
+                    num: 6,
+                    is_sel: false
+                },
+                {
+                    num: 7,
+                    is_sel: false
+                },
+                {
+                    num: 8,
+                    is_sel: false
+                },
+            ],
             races: [
                 [1, 9, 17],
                 [2, 10, 18],
@@ -473,70 +669,141 @@
                 [7, 15, 23],
                 [8, 16, 24],
             ],
-            Competition: [
-                {
-                title: "จูเนียร์",
-                card: [
-                    {
-                    name: 'ทั่วไป',
-                    age: "280 ปี"
+            Competition: [{
+                    title: "จูเนียร์",
+                    card: [{
+                            name: 'ทั่วไป',
+                            age: "280 ปี"
+                        },
+                        {
+                            name: 'ผสม',
+                            age: "260 ปี"
+                        },
+                    ],
                 },
                 {
-                    name: 'ผสม',
-                    age: "260 ปี"
+                    title: "ซุปเปอร์จูเนียร์",
+                    card: [{
+                            name: 'ทั่วไป',
+                            age: "281–360 ปี"
+                        },
+                        {
+                            name: 'ผสม',
+                            age: "261–340 ปี"
+                        },
+                    ],
+                },
+                {
+                    title: "ซีเนียร์",
+                    card: [{
+                            name: 'ทั่วไป',
+                            age: "361–440 ปี"
+                        },
+                        {
+                            name: 'ผสม',
+                            age: "341–420 ปี"
+                        },
+                    ],
+                },
+                {
+                    title: "ซูเปอร์ซีเนียร์",
+                    card: [{
+                            name: 'ทั่วไป',
+                            age: "441 ปีขึ้นไป"
+                        },
+                        {
+                            name: 'ผสม',
+                            age: "421 ปีขึ้นไป"
+                        },
+                    ],
+                },
+                {
+                    title: "หญิง",
+                    card: [{
+                        name: 'ทั่วไป',
+                        age: "ไม่จำกัดอายุ"
+                    }],
                 },
             ],
-            },
-            {
-                title: "ซุปเปอร์จูเนียร์",
-                card: [
-                    {
-                    name: 'ทั่วไป',
-                    age: "281–360 ปี"
+            fulldays: [{
+                    whatdate: 'Saturday',
+                    date: 8,
+                    month: 'December'
                 },
                 {
-                    name: 'ผสม',
-                    age: "261–340 ปี"
+                    whatdate: 'Sunday',
+                    date: 9,
+                    month: 'December'
                 },
             ],
-            },
-            {
-                title: "ซีเนียร์",
-                card: [
-                    {
-                    name: 'ทั่วไป',
-                    age: "361–440 ปี"
+            days: [{
+                    date: 8,
+                    month: 'Dec',
+                    is_sel: true
                 },
                 {
-                    name: 'ผสม',
-                    age: "341–420 ปี"
-                },
-            ],
-            },
-            {
-                title: "ซูเปอร์ซีเนียร์",
-                card: [
-                    {
-                    name: 'ทั่วไป',
-                    age: "441 ปีขึ้นไป"
-                },
-                {
-                    name: 'ผสม',
-                    age: "421 ปีขึ้นไป"
-                },
-            ],
-            },
-            {
-                title: "หญิง",
-                card: [
-                    {
-                    name: 'ทั่วไป',
-                    age: "ไม่จำกัดอายุ"
+                    date: 9,
+                    month: 'Dec',
+                    is_sel: false
                 }
             ],
+            timeline:[
+                [
+                    {
+                        time: "13.00 - 15.00",
+                        detail: "Registed, Get shirt, BIB"
+                    },
+                    {
+                        time: "15.00 - 16.00",
+                        detail: "Get shirt, BIB"
+                    },
+                    {
+                        time: "17.00 - 20.00",
+                        detail: "BIB"
+                    },
+                ],
+                [
+                    {
+                        time: "00.00 - 15.00",
+                        detail: "Registed, Get shirt, BIB"
+                    },
+                    {
+                        time: "01.00 - 16.00",
+                        detail: "Get shirt, BIB"
+                    },
+                    {
+                        time: "17.00 - 20.00",
+                        detail: "BIB"
+                    },
+                ]
+            ]
+        },
+        methods: {
+            runmap_sel(i) {
+                this.runmap.forEach(x => {
+                    if (x.num == i.num) {
+                        this.map_sel = i.num-1
+                        i.is_sel = true
+                    } else {
+                        x.is_sel = false
+                    }
+                })
             },
-        ]
-        }
+            dateday_sel(i) {
+                this.days.forEach(x => {
+                    if (x.date == i.date) {
+                        if (i.date == 8) {
+                            this.day_sel = 0
+                        } else {
+                            this.day_sel = 1
+                        }
+                        i.is_sel = true
+                    } else {
+                        x.is_sel = false
+                    }
+                })
+            }
+        },
     })
 </script>
 
