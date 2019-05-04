@@ -1,0 +1,13 @@
+#Rule2{
+    color:#AF2F30;
+}
+#Rule2 h1 {
+    font-size: 3rem;
+  }
+#Rule2 h2 {
+    font-size: 2.2rem;
+  }
+#Rule2 p,li {
+    font-size: 1.4rem;
+    margin-bottom: 3px;
+  }

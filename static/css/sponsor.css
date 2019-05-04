@@ -1,0 +1,11 @@
+#Sponsor .is-horizontal-center {
+    justify-content: center;
+  }
+#Sponsor  h1 {
+    font-size: 3rem;
+    color: #af2f30;
+  }
+#Sponsor  p {
+    color: #af2f30;
+    font-size: 1.2rem;
+  }

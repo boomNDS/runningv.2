@@ -1,0 +1,23 @@
+#Awards h1 {
+    font-size: 3rem;
+    color: #af2f30;
+  }
+#Awards  h2 {
+    font-size: 2rem;
+    color: #af2f30;
+    text-align: right;
+  }
+#Awards  p {
+    color: #af2f30;
+  }
+#Awards  .text_title {
+    font-size: 1.5rem;
+  }
+#Awards  .detail {
+    font-size: 1rem;
+    text-align: center;
+  }
+#Awards  img{
+    width: 100%;
+    /* height: auto; */
+  }

@@ -1,0 +1,12 @@
+#Photos h1 {
+    font-size: 3rem;
+    color: #fff;
+  }
+#Photos p {
+    color: #fff;
+    font-size: 1.2rem;
+  }
+#Photos img{
+    width: 80%;
+    /* text-align: center; */
+  }

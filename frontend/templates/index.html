@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bulma/css/bulma.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'fullpage/fullpage.min.css' %}">
     <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/v-img@latest/dist/v-img.min.js"></script>
     <title>Running thailand</title>
 </head>
 
@@ -16,14 +17,132 @@
     <div id="app">
         <div id="fullpage">
             <div class="section fp-auto-height-responsive" id="Home">
+                <div class="container is-fluid">
+                    <div class="columns">
+                        <div class="column is-three-fifths is-12-mobile">
+                            <img src="{% static 'img/Hometitle.png' %}">
+                        </div>
+                        <div class="column is-12-mobile">
+                            <Timer starttime="Nov 5, 2018 15:37:25" endtime="Nov 8, 2020 16:37:25" trans='{  
+                                        "day":"Day",
+                                        "hours":"Hours",
+                                        "minutes":"Minuts",
+                                        "seconds":"Seconds",
+                                        "expired":"Event has been expired.",
+                                        "running":"Till the end of event.",
+                                        "upcoming":"Till start of event.",
+                                        "status": {
+                                           "expired":"Expired",
+                                           "running":"Running",
+                                           "upcoming":"Future"
+                                          }}'></Timer>
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="News">
+                <div class="container is-fluid">
+                    <div class="columns">
+                        <div class="column is-12">
+                            <h1>News</h1>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div v-for="i in 3" :key="i" class="column is-12-mobile">
+                            <p>[[i]]</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="AllTeam">
+                <div class="container is-fluid">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-4">
+                            <h1>All Team</h1>
+                        </div>
+                        <div class="column is-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Team name</th>
+                                        <th>Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="Rule1">
+                <div class="container is-fluid">
+                    <div class="columns is-multiline">
+                        <div class="column is-12">
+                            <h1>Rule</h1>
+                        </div>
+                        <div class="column is-12">
+                            <p>วิ่งทั้งหมด 8 คน โดยมีหมายเลขประจำตัวเป็นคนที่ 1 ถึงคนที่ 8 เส้นทางแข่งขันทั้งหมดแบ่งเป็น
+                                24 ช่วง ประมาณช่วงละ 6 กิโลเมตรเศษ ผู้วิ่งในทีม 8 คน วิ่งคนละ 3 ช่วง รวม 18 กิโลเมตร</p>
+                        </div>
+                        <div class="column is-3">
+                            <RunnerRule></RunnerRule>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="Rule2">
+                <div class="container is-fluid">
+                    <div class="columns is-multiline">
+                        <div class="column is-12">
+                            <h1>Rule</h1>
+                        </div>
+                        <div class="column is-12">
+                            <div class="content">
+                                <ol type="1">
+                                    <li>แต่ละทีมกำหนดให้มีรถยนต์ ซึ่งให้ผู้วิ่งโดยสารได้ไม่ต่ำกว่า 7 คน
+                                        สามารถให้บริการให้แก่ผู้วิ่งตลอดเส้นทาง และนำผู้วิ่งผลัดต่อไปไปยังจุดเปลี่ยนตัว
+                                        เมื่อผู้วิ่งที่ 1 ถือไม้ผลัดเริ่มวิ่งจากจุด start</li>
+                                    <li>รถยนต์ประจำทีมก็จะถูกขับตามไปบริการผู้วิ่ง และนำผู้วิ่งคนที่ 2 ไปรอ
+                                        คอยรับไม้ผลัด ณ จุด</li>
+                                    <li>เปลี่ยนตัวที่ 2 จะมีป้ายบอกระยะ 1 กม. ก่อนจุดเปลี่ยนตัว
+                                        ทำเช่นนี้จนถึงนักวิ่งคนที่ 8 และเริ่มรอบที่ 2 โดยที่นักวิ่งคนที่ 1
+                                        เริ่มวิ่งช่วงที่ 9 เมื่อวิ่งครบรอบที่ 2 แล้วเริ่มการวิ่งรอบที่ 3 ต่อไปคนที่ 8
+                                        ซึ่งวิ่งจากจุดเปลี่ยนตัวที่ 23 ไปจนถึงเส้นชัย (Finish) (เมื่อนักวิ่งถึงระยะ 1
+                                        กม. จะถึงเส้นชัยนักวิ่งทุกคนในทีมมาวิ่งร่วมกันจนถึงเส้นชัย)</li>
+                                    <li>ระยะเวลาตั้งแต่เริ่มต้นวิ่งจากจุดเริ่ม start ฝั่งทะเล ด้านอ่าวไทย
+                                        (มหาสมุทรแปซิฟิค)จนถึงเส้นชัย (Finish) ที่ฝั่งทะเลอันดามัน (มหาสมุทรอินเดีย)
+                                        จะเป็นระยะเวลาของการวิ่งแต่ละทีม</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="column is-12">
+                            <h2>การให้บริการนักวิ่ง</h2>
+                        </div>
+                        <div class="column is">
+                            <p>ผู้จัดการแข่งขันจะจัดเครื่องดื่ม กล่องโฟม ผลไม้ตามฤดูกาล และชุดปฐมพยาบาลเบื้องต้น
+                                ไว้สำหรับผู้เข้าร่วมแข่งขัน สำหรับเรื่องรถยนต์ประจำทีม แต่ละทีมต้องหารถประจำทีมเป็นรถ 4
+                                ล้อมาเอง</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="Category">
             </div>
@@ -32,18 +151,118 @@
             <div class="section fp-auto-height-responsive" id="Schedule">
             </div>
             <div class="section fp-auto-height-responsive" id="Awards">
+                <div class="container is-fluid">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-12">
+                            <h1>Awards</h1>
+                        </div>
+                        <div class="column is-4">
+                            <h2>1st - 3rd</h2>
+                        </div>
+                        <div class="column is-8 text_title">
+                            <p>ถ้วยรางวัลเกียรติยศ ทีมละ 1 รางวัล</p>
+                            <p>เหรียญรางวัลสำหรับนักวิ่งในทีม 8 รางวัล</p>
+                        </div>
+                        <div class="column is-12 detail">
+                            <p>นักวิ่งทุกคนที่วิ่งเข้าเส้นชัยจะได้รับเสื้อสามารถ มีอักษร "FINISHER OCEAN TO OCEAN RELAY"
+                            </p>
+                        </div>
+                        <div class="column is-3">
+                            <img v-img:Awards src="{% static 'img/Awards/1.png' %}">
+                        </div>
+                        <div class="column is-3">
+                            <img v-img:Awards src="{% static 'img/Awards/2.png' %}" alt="2">
+                        </div>
+                        <div class="column is-3">
+                            <img v-img:Awards src="{% static 'img/Awards/3.png' %}" alt="1">
+                        </div>
+                        <div class="column is-3">
+                            <img v-img:Awards src="{% static 'img/Awards/4.png' %}" alt="2">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="Photos">
+                <div class="container is-fluid">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-12">
+                            <h1>Photos</h1>
+                        </div>
+                        <div class="column is-4">
+                            <!-- {% static 'img/Hometitle.png' %} -->
+                            <img v-img:Photos src="{% static 'img/Photos/d1.png' %}">
+                        </div>
+                        <div class="column is-4">
+                            <img v-img:Photos src="{% static 'img/Photos/d2.png' %}" alt="2">
+                        </div>
+                        <div class="column is-4">
+                            <img v-img:Photos src="{% static 'img/Photos/d3.png' %}" alt="1">
+                        </div>
+                        <div class="column is-4">
+                            <img v-img:Photos src="{% static 'img/Photos/d1-1.png' %}" alt="2">
+                        </div>
+                        <div class="column is-4">
+                            <img v-img:Photos src="{% static 'img/Photos/d2-1.png' %}" alt="2">
+                        </div>
+                        <div class="column is-4">
+                            <img v-img:Photos src="{% static 'img/Photos/d3-1.png' %}" alt="2">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="Sponsor">
+                <div class="container is-fluid">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-12">
+                            <h1>Sponsor</h1>
+                        </div>
+                        <div class="column is-12">
+                            <div class="equal-height">
+                                <div class="card-content is-flex is-horizontal-center">
+                                    <img src="{% static 'img/1.png' %}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="Contact">
+                <div class="container is-fluid">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-12">
+                            <h1>Contact</h1>
+                        </div>
+                        <div class="column is-12">
+                            <h2>Thailand ocean to ocean</h2>
+                            <p>โทรศัพท์: 081-612-1116, 085-161-0463, 081-428-5754</p>
+                            <p>fax: 02-734-0044</p>
+                            <p>email: auchai_k@hotmail.com</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
 </body>
 <script src="{% static 'fullpage/fullpage.min.js' %}"></script>
+<script src="{% static 'js/countdown.js' %}"></script>
+<script src="{% static 'js/RunnerRule.js' %}"></script>
+<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+<style>
+    * {
+        font-family: 'Kanit', sans-serif;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="{% static 'css/timer.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/Rule1.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/Rule2.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/Contact.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/sponsor.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/photos.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/Awards.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/allteam.css' %}">
 <script>
     var myFullpage = new fullpage('#fullpage', {
         anchors: ['Home', 'News', 'AllTeam', 'Rule1', 'Rule2', 'Category', 'Map', 'Schedule', 'Awards',
@@ -63,8 +282,6 @@
             "#E6DFD5",
             "#AF2F30"
         ],
-        autoScrolling: true,
-        scrollHorizontally: true,
         navigation: true,
         navigationPosition: 'right',
         navigationTooltips: ['Home', 'News', 'AllTeam', 'Rule1', 'Rule2', 'Category', 'Map', 'Schedule',
@@ -79,12 +296,13 @@
     fullpage_api.setAllowScrolling(false);
 </script>
 <script>
-        new Vue({
-          delimiters: ['[[', ']]'],
-          el: '#app',
-          data: {
+    new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app',
+        data: {
             title: 'Welcome to My Journal'
-          }
-        })
-        </script>
+        }
+    })
+</script>
+
 </html>
