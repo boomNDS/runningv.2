@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'runningv2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'runningThailand3',
+        'USER': 'runningThailand',
+        'PASSWORD': 'runningThailand',
+        'HOST': 'runningthailand2.c0nkinxa4aiv.ap-southeast-1.rds.amazonaws.com',
+        'PORT':'3306'
     }
 }
 
