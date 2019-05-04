@@ -35,39 +35,12 @@
                     <a class="navbar-item">
                         Documentation
                     </a>
-
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                            More
-                        </a>
-
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item">
-                                About
-                            </a>
-                            <a class="navbar-item">
-                                Jobs
-                            </a>
-                            <a class="navbar-item">
-                                Contact
-                            </a>
-                            <hr class="navbar-divider">
-                            <a class="navbar-item">
-                                Report an issue
-                            </a>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            <a class="button is-primary">
-                                <strong>Sign up</strong>
-                            </a>
-                            <a class="button is-light">
-                                Log in
-                            </a>
+                            <a href="{% url 'signin' %}" class="button is-success is-outlined">Sign in</a>
                         </div>
                     </div>
                 </div>
@@ -292,7 +265,8 @@
                         </div>
                         <div class="column is-6">
                             <div class="columns is-multiline is-mobile">
-                                <div class="column is-12 columns is-multiline is-mobile" id="datedetail" v-for="i in timeline[day_sel]" :key="i" style="margin-top: 20px;">
+                                <div class="column is-12 columns is-multiline is-mobile" id="datedetail"
+                                    v-for="i in timeline[day_sel]" :key="i" style="margin-top: 20px;">
                                     <div class="column is-12">
                                         <p>[[i.time]]</p>
                                     </div>
@@ -441,6 +415,8 @@
             "#E6DFD5",
             "#AF2F30"
         ],
+        autoScrolling: true,
+        scrollHorizontally: true,
         navigation: true,
         navigationPosition: 'right',
         navigationTooltips: ['Home', 'News', 'AllTeam', 'Rule1', 'Rule2', 'Category', 'Map', 'Schedule',
@@ -448,7 +424,6 @@
             'Photos', 'Sponsor', 'Contact'
         ],
         responsiveWidth: 900,
-        afterResponsive: function (isResponsive) {}
     });
 
     //methods
@@ -625,8 +600,7 @@
                     url: 'run1.png'
                 },
             ],
-            runmap: [
-                {
+            runmap: [{
                     num: 1,
                     is_sel: true
                 },
@@ -747,9 +721,8 @@
                     is_sel: false
                 }
             ],
-            timeline:[
-                [
-                    {
+            timeline: [
+                [{
                         time: "13.00 - 15.00",
                         detail: "Registed, Get shirt, BIB"
                     },
@@ -762,8 +735,7 @@
                         detail: "BIB"
                     },
                 ],
-                [
-                    {
+                [{
                         time: "00.00 - 15.00",
                         detail: "Registed, Get shirt, BIB"
                     },
@@ -782,7 +754,7 @@
             runmap_sel(i) {
                 this.runmap.forEach(x => {
                     if (x.num == i.num) {
-                        this.map_sel = i.num-1
+                        this.map_sel = i.num - 1
                         i.is_sel = true
                     } else {
                         x.is_sel = false

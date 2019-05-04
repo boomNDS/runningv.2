@@ -1,12 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'bulma/css/bulma.min.css' %}">
+    <script src="https://unpkg.com/vue"></script>
     <title>Sign in</title>
 </head>
+
 <body>
-    <p>sign in</p>
+    <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <img src="{% static 'img/logo.png' %}" alt="Logo" width="100px" height="88px">
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="{% url 'home' %}" class="navbar-item">
+                    Home
+                </a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a href="{% url 'home' %}" class="button is-success is-outlined">Sign up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container is-fluid">
+        <div class="columns is-mobile is-centered">
+            <div class="column is-4">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur esse aliquid quod natus laboriosam perferendis neque, eos sunt veniam, veritatis enim molestias consequuntur perspiciatis eaque alias reiciendis dolorum ipsum labore!
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
+<style>
+.is-fluid{
+    margin-top: 15%;
+    background-color: #AF2F30;
+    color:#fff;
+}
+</style>
