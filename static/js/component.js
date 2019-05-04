@@ -91,3 +91,39 @@ Vue.component('Timer', {
       <!-- <div class="message">{{ message }}</div> -->
     </div>`
   })
+
+  Vue.component('rule', {
+    props: ['num', 'races'],
+      template: `<div class="container is-fluid" id="RunnerRule">
+      <div class="columns is-multiline is-centered runner">
+        <div class="column is-4">
+          <h1 class="title">คนที่</h1>
+          <p class="num">{{num}}</p>
+        </div>
+        <div class="column is-8">
+          <h1>จะต้องวิ่งช่วง</h1>
+          <div class="columns">
+            <div class="column is-4 circle" v-for="i in races" :key="i">{{i}}</div>
+          </div>
+        </div>
+      </div>
+    </div>`
+  })
+
+  Vue.component('cardcategory', {
+    // props: ['num', 'races'],
+      template: `<div id="CardCategory">
+      <div class="container is-fluid">
+        <div class="columns is-multiline is-mobile">
+          <div class="column is-12">
+            <h1>ประเภทจูเนียร์</h1>
+          </div>
+          <div class="column is-2 cardbox" v-for="i in 2" :key="i">
+            <h3>ทั่วไป</h3>
+            <h5>อายุรวมไม่เกิน</h5>
+            <h2>280 ปี</h2>
+          </div>
+        </div>
+      </div>
+    </div>`
+  })
