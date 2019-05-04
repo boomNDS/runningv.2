@@ -1,0 +1,37 @@
+#Schedule h1 {
+    font-size: 3rem;
+    color: #fff;
+}
+
+#Schedule p {
+    font-size: 1.2rem;
+}
+
+#Schedule .date {
+    text-align: center;
+}
+
+#Schedule .date_all {}
+
+#Schedule .date_select {
+    width: 80px;
+    height: 100%;
+    background: #fff;
+    color: #AF2F30;
+    text-align: center;
+    margin: 20px;
+    border-radius: 100%;
+}
+
+#Schedule .day {
+    font-size: 10rem;
+}
+
+#Schedule .month {
+    font-size: 3.5rem;
+    color: #fff;
+}
+
+#Schedule .date_detail {
+    font-size: 1.5rem;
+}

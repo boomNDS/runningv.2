@@ -1,0 +1,22 @@
+#CardCategory h1 {
+  font-size: 2rem;
+  color: #fff;
+}
+#CardCategory .cardbox {
+  background: #fff;
+  color: #000;
+  width: 80%;
+  height: auto;
+  border-radius: 15px;
+  text-align: center;
+  margin: 10px;
+}
+#CardCategory h3 {
+  font-size: 1.5rem;
+}
+#CardCategory h2 {
+  font-size: 2rem;
+}
+#CardCategory h5 {
+  font-size: 1rem;
+}

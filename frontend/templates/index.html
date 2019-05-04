@@ -15,12 +15,9 @@
 
 <body>
     <div id="app">
-        <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <a class="navbar-item" href="https://bulma.io">
-                    <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-                </a>
-
+                <img src="{% static 'img/logo.png' %}" alt="Logo" width="100px" height="88px">
                 <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
                     data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
@@ -163,8 +160,8 @@
                             <p>วิ่งทั้งหมด 8 คน โดยมีหมายเลขประจำตัวเป็นคนที่ 1 ถึงคนที่ 8 เส้นทางแข่งขันทั้งหมดแบ่งเป็น
                                 24 ช่วง ประมาณช่วงละ 6 กิโลเมตรเศษ ผู้วิ่งในทีม 8 คน วิ่งคนละ 3 ช่วง รวม 18 กิโลเมตร</p>
                         </div>
-                        <div class="column is-3">
-                            <RunnerRule></RunnerRule>
+                        <div class="column is-3" v-for="i in 8" :key="i">
+                            <rule :num="i" :races="races[i-1]"></rule>
                         </div>
                     </div>
                 </div>
@@ -206,10 +203,80 @@
                 </div>
             </div>
             <div class="section fp-auto-height-responsive" id="Category">
+                <div class="container is-fluid">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-12">
+                            <h1>Category</h1>
+                        </div>
+                        <div class="column is-4" v-for="i in 6" :key="i">
+                            <cardcategory></cardcategory>
+                        </div>
+                        <div class="column is-12">
+                            <p>ประเภททั่วไป - ชาย 8 คน หรือ ชาย 7 คน หญิง 1 คน</p>
+                            <p>ประเภทผสม - ชายไม่เกิน 6 คน หรือ หญิงไม่ต่ำกว่า 2 คน</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="Map">
+                <div class="container is-fluid">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-12">
+                            <h1>Map</h1>
+                        </div>
+                        <div class="column is-5">
+                            <img v-img:Map src="{% static 'img/Map/map1.png' %}">
+                        </div>
+                        <div class="column is-7 columns is-multiline">
+                            <div class="column is-1 runner" v-for="i in 8" :key="i">
+                                <p>[[i]]</p>
+                            </div>
+                            <div class="column is-3">
+                                <p>นักวิ่งคนที่ 1</p>
+                            </div>
+                            <div class="column is-9">
+                                <p>จุดเปลี่ยนผลัด</p>
+                            </div>
+                            <div class="column is-12 columns is-multiline" v-for="i in 3" :key="i">
+                                <div class="column is-3">
+                                    <p>1st Round</p>
+                                </div>
+                                <div class="column is-9">
+                                    <p>อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์</p>
+                                </div>
+                            </div>
+                            <div class="column is-12">
+                                <img v-img:Map src="{% static 'img/Map/run1.png' %}" class="run1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="Schedule">
+                <div class="container is-fluid">
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-12">
+                            <h1>Schedule</h1>
+                        </div>
+                        <div class="column is-6 date">
+                            <h2 class="month">Saturday</h2>
+                            <h1 class="day">8</h1>
+                            <h2 class="month">December</h2>
+                            <div class="columns is-multiline date_all is-centered">
+                                <div class="date_select column is-2">
+                                    <p class="date_detail">8</p>
+                                    <p class="date_detail">Dec</p>
+                                </div>
+                                <div class="date_select column is-2">
+                                    <p class="date_detail">9</p>
+                                    <p class="date_detail">Dec</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-6">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section fp-auto-height-responsive" id="Awards">
                 <div class="container is-fluid">
@@ -307,16 +374,19 @@
 
 </body>
 <script src="{% static 'fullpage/fullpage.min.js' %}"></script>
-<script src="{% static 'js/countdown.js' %}"></script>
-<script src="{% static 'js/RunnerRule.js' %}"></script>
+<script src="{% static 'js/component.js' %}"></script>
 <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 <style>
     * {
         font-family: 'Kanit', sans-serif;
     }
 </style>
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/timer.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/Map.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/Schedule.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/Rule1.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/Category.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/Rule2.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/Contact.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/sponsor.css' %}">
@@ -324,6 +394,8 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/Awards.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/allteam.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/cardcegory.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/RunnerRule.css' %}">
 <script>
     var myFullpage = new fullpage('#fullpage', {
         anchors: ['Home', 'News', 'AllTeam', 'Rule1', 'Rule2', 'Category', 'Map', 'Schedule', 'Awards',
@@ -388,7 +460,17 @@
         delimiters: ['[[', ']]'],
         el: '#app',
         data: {
-            title: 'Welcome to My Journal'
+            title: 'Welcome to My Journal',
+            races:[
+                [1,9,17],
+                [2,10,18],
+                [3,11,19],
+                [4,12,20],
+                [5,13,21],
+                [6,14,22],
+                [7,15,23],
+                [8,16,24],
+            ]
         }
     })
 </script>

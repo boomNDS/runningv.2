@@ -1,0 +1,27 @@
+#Map .run1 {
+    width: auto;
+    height: 50% !important;
+}
+
+#Map {
+    padding-top: 5%;
+    color: #af2f30;
+}
+
+#Map h1 {
+    font-size: 3rem;
+}
+
+#Map p {
+    font-size: 1.2rem;
+}
+
+#Map .runner {
+    width: 50px;
+    height: auto;
+    background: #af2f30;
+    color: #fff;
+    border-radius: 100%;
+    text-align: center;
+    margin: 0 5px;
+}
