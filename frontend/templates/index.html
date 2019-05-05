@@ -17,7 +17,9 @@
     <div id="app">
         <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <img src="{% static 'img/logo.png' %}" alt="Logo" width="100px" height="88px">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo" width="100px" height="88px">
+                </a>
                 <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
                     data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
@@ -28,12 +30,8 @@
 
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
-                    <a class="navbar-item">
+                    <a href="{% url 'home' %}" class="navbar-item">
                         Home
-                    </a>
-
-                    <a class="navbar-item">
-                        Documentation
                     </a>
                 </div>
 
@@ -44,6 +42,7 @@
                             <p style="margin: 5px;">{{e}}</p>
                             <button class="button is-danger is-outlined" type="button"
                                 onclick="location.href='{% url 'log' %}'">Logout</button>
+                            <a href="{% url 'editme' %}" class="button is-success is-outlined">Edit</a>
                             {% else %}
                             <a href="{% url 'signin' %}" class="button is-success is-outlined">Sign in</a>
                             {% endif %}
@@ -74,7 +73,10 @@
                                            "running":"Running",
                                            "upcoming":"Future"
                                           }}'></Timer>
-                            <a class="button is-info is-inverted is-outlined" style="margin-left: 35%;">สมัครแข่งขัน</a>
+                            {% if e %}
+                            <a href="{% url 'admin' %}" class="button is-info is-inverted is-outlined"
+                                style="margin-left: 35%;">สมัครแข่งขัน</a>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -101,14 +103,46 @@
                             <h1>All Team</h1>
                         </div>
                         <div class="column is-12">
-                            <table class="table">
+                            <table class="table is-fullwidth is-scrollable">
                                 <thead>
                                     <tr>
                                         <th>Team name</th>
                                         <th>Type</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody height="200px">
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
+                                    <tr>
+                                        <td>GOGOGO</td>
+                                        <td>JR</td>
+                                    </tr>
                                     <tr>
                                         <td>GOGOGO</td>
                                         <td>JR</td>
@@ -480,11 +514,11 @@
                         },
                         {
                             title: '9th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'บ้านผู้ใหญ่ทินกรณ์'
                         },
                         {
                             title: '17th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'สถานีควบคุมไฟป่าชุมพร'
                         },
                     ],
                     url: 'run1.png'
@@ -492,16 +526,16 @@
                 {
                     num: 2,
                     round: [{
-                            title: '2rd Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            title: '2nd Round',
+                            name: 'หลัก กม. 3'
                         },
                         {
                             title: '10th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'ศาลาตรงข้ามศูนย์การเรียนรู้บ้านประสานมิตร'
                         },
                         {
                             title: '18th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'แยกราชกรูด'
                         },
                     ],
                     url: 'run1.png'
@@ -509,16 +543,16 @@
                 {
                     num: 3,
                     round: [{
-                            title: '3st Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            title: '3rd Round',
+                            name: 'รร. วัดประสาทนิกร'
                         },
                         {
                             title: '11th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'ศูนย์พัฒนาเด็กเล็ก อ.พะโต๊ะ'
                         },
                         {
                             title: '19th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'ครูจุ๊บรับซื้อของเก่า'
                         },
                     ]
                 },
@@ -526,15 +560,15 @@
                     num: 4,
                     round: [{
                             title: '4th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'ทางเข้าวัดสมุหเขตตา'
                         },
                         {
                             title: '12th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'รร. พะโต๊ะวิทยา'
                         },
                         {
                             title: '20th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'ร้านลองเล'
                         },
                     ],
                     url: 'run1.png'
@@ -543,15 +577,15 @@
                     num: 5,
                     round: [{
                             title: '5th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'แยกเข้า ต.วังตะกอ'
                         },
                         {
                             title: '13th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'หลัก กม. 21 อู่ซ้อมรถ'
                         },
                         {
                             title: '21th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'กม. 637'
                         },
                     ],
                     url: 'run1.png'
@@ -560,15 +594,15 @@
                     num: 6,
                     round: [{
                             title: '6th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'หลัก กม. 55'
                         },
                         {
                             title: '14th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'หลัก กม. 17 ร้านข้าวแกง'
                         },
                         {
                             title: '22th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'กม. 641'
                         },
                     ],
                     url: 'run1.png'
@@ -577,15 +611,15 @@
                     num: 7,
                     round: [{
                             title: '7th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'วิสาหกิจชุมชน กลุ่มการเกษตรปังหวาน'
                         },
                         {
                             title: '15th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'ตรงข้าม รร. พัฒนศึกษา'
                         },
                         {
                             title: '23th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'รน. 1037 กม. 2'
                         },
                     ],
                     url: 'run1.png'
@@ -594,15 +628,15 @@
                     num: 8,
                     round: [{
                             title: '8th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'ที่ทำการ อบต. พระรักษ์'
                         },
                         {
                             title: '16th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'ตรงข้ามปากซอยห้วยน้ำเย็น'
                         },
                         {
                             title: '24th Round',
-                            name: 'อนุสาวรีย์เรือรบหลวงจักรีนฤเบศร์'
+                            name: 'รน. 1037 กม. 63'
                         },
                     ],
                     url: 'run1.png'
@@ -731,29 +765,29 @@
             ],
             timeline: [
                 [{
-                        time: "13.00 - 15.00",
+                        time: "13.30",
                         detail: "Registed, Get shirt, BIB"
                     },
                     {
-                        time: "15.00 - 16.00",
-                        detail: "Get shirt, BIB"
+                        time: "16.00",
+                        detail: "The meeting clarified the rules of the Relay and Solo Runner 115 km. & Dinner."
                     },
                     {
-                        time: "17.00 - 20.00",
-                        detail: "BIB"
+                        time: "22.00",
+                        detail: "Released \'Solo Runner 115 km.\'"
                     },
                 ],
                 [{
-                        time: "00.00 - 15.00",
-                        detail: "Registed, Get shirt, BIB"
+                        time: "06.00",
+                        detail: "Release the Relay Runner"
                     },
                     {
-                        time: "01.00 - 16.00",
-                        detail: "Get shirt, BIB"
+                        time: "18.00",
+                        detail: "Award Ceremony at Andaman Peace Resort & Dinner."
                     },
                     {
-                        time: "17.00 - 20.00",
-                        detail: "BIB"
+                        time: "20.00",
+                        detail: "End of competition"
                     },
                 ]
             ]
@@ -786,5 +820,13 @@
         },
     })
 </script>
+<style>
+    .table tbody {
+        background-color: #fff;
+        overflow-y: scroll;
+        width: auto;
+        position: absolute;
+    }
+</style>
 
 </html>
