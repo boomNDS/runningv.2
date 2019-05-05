@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
-class Users(User):
-    event_id = models.ForeignKey("Event", on_delete=models.PROTECT, null=False, blank=False)
 
 class Runner(models.Model):
     bib = models.IntegerField(primary_key=True)
@@ -67,7 +65,19 @@ class CheckPoint(models.Model):
 
 class RunningType(models.Model):
     running_type_id = models.IntegerField(primary_key=True)
-    catergory = models.CharField(max_length=255)
+    CATERGORY = (
+        ('open junior', ' ประเภทจูเนียร์ทั่วไป อายุรวมกันไม่เกิน 280 ปี'),
+        ('mixed junior', 'ประเภทจูเนียร์ผสม อายุรวมกันไม่เกิน 260 ปี'),
+        ('open super junior', 'ประเภทซุปเปอร์จูเนียร์ทั่วไป อายุรวมกันตั้งแต่ 281 – 360'),
+        ('mixed super junior', 'ประเภทซุปเปอร์จูเนียร์ผสม อายุรวมกันตั้งแต่ 261 – 340 ปี'),
+        ('open senior ', 'ประเภทซีเนียร์ทั่วไป อายุรวมกันตั้งแต่ 361 – 440 ปี'),
+        ('mixed senior ', 'ประเภทฃีเนียร์ผสม อายุรวมกันตั้งแต่ 341 – 420 ปี'),
+        ('open super senior', 'ประเภทซูเปอร์ซีเนียร์ทั่วไป อายุรวมกันตั้งแต่ 441 ปีขึ้นไป'),
+        ('mixed super senior ', 'ประเภทซูปซีเนียร์ผสม อายุรวมกันตั้งแต่ 421 ปีขึ้นไป'),
+        ('open female', 'ประเภทหญิงทั่วไป ไม่จำกัดอายุ'),
+        ('solo runner', 'ประเภทเดี่ยว ระยะ 120 km.'),
+    )
+    catergory = models.CharField(choices=CATERGORY, max_length=255)
     def __str__(self):
         return "%d %s" % (self.running_type_id, self.catergory)
 
@@ -76,8 +86,8 @@ class Team(Runner):
     team_name = models.CharField (max_length=100)
     resident = models.BooleanField()
     TEAM_TYPE = (
-        ('team_need_runner', 'Team Need Runner'),
-        ('runner_need_team', 'Runner Need Team'),
+        ('team need runner', 'Team Need Runner'),
+        ('runner need team', 'Runner Need Team'),
     )
     team_type = models.CharField(choices=TEAM_TYPE, max_length=50)
     def __str__(self):
@@ -97,6 +107,7 @@ class RegisterInfo(models.Model):
     event_id = models.ForeignKey(
         "Event", on_delete=models.PROTECT, null=False, blank=False)
     running_type_id = models.ForeignKey("RunningType", on_delete=models.PROTECT, null=False, blank=False)
+    user_email = models.EmailField(max_length=254)
     def __str__(self):
         return "%d" % (self.regist_id)
     
