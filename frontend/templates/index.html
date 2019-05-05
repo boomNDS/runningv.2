@@ -40,12 +40,19 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
+                            {% if e %}
+                            <p style="margin: 5px;">{{e}}</p>
+                            <button class="button is-danger is-outlined" type="button"
+                                onclick="location.href='{% url 'log' %}'">Logout</button>
+                            {% else %}
                             <a href="{% url 'signin' %}" class="button is-success is-outlined">Sign in</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
+        {% csrf_token %}
         <div id="fullpage">
             <div class="section fp-auto-height-responsive" id="Home">
                 <div class="container is-fluid">
