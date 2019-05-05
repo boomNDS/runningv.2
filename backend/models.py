@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Runner(models.Model):
-    bib = models.IntegerField(primary_key=True)
     SIZE = (
         ('s', 'S'),
         ('m', 'M'),
@@ -25,7 +24,6 @@ class Runner(models.Model):
 
 
 class Driver(models.Model):
-    driver_id = models.IntegerField(primary_key=True)
     d_firstname = models.CharField(max_length=50)
     d_lastname = models.CharField(max_length=50)
     d_phone = models.CharField(max_length=10)
@@ -34,7 +32,6 @@ class Driver(models.Model):
         return self.driver_id + " "+ self.d_firstname+" "+self.d_lastname+" "+self.d_phone
 
 class Manager(models.Model):
-    manager_id = models.IntegerField(primary_key = True)
     m_firstname = models.CharField(max_length=50)
     m_lastname = models.CharField(max_length=50)
     m_phone = models.CharField(max_length=10)
@@ -45,7 +42,6 @@ class Manager(models.Model):
         return "%d %s %s %s %s" % (self.manager_id, self.m_firstname, self.m_lastname, self.m_phone)
 
 class Event(models.Model):
-    event_id = models.IntegerField(primary_key=True)
     event_name = models.CharField(max_length=50)
     e_date = models.DateField(auto_now=False, auto_now_add=False)
     e_locations = models.TextField()
@@ -54,7 +50,6 @@ class Event(models.Model):
         return "%d %s %s" % (self.event_id, self.event_name, self.e_date)
 
 class CheckPoint(models.Model):
-    checkpoint_no = models.IntegerField(primary_key =True)
     round_no = models.IntegerField()
     lap_distant = models.FloatField()
     place = models.CharField(max_length=50)
@@ -64,7 +59,6 @@ class CheckPoint(models.Model):
         return "%d %s" % (self.checkpoint_no, self.checkpoint_name)
 
 class RunningType(models.Model):
-    running_type_id = models.IntegerField(primary_key=True)
     CATERGORY = (
         ('open junior', ' ประเภทจูเนียร์ทั่วไป อายุรวมกันไม่เกิน 280 ปี'),
         ('mixed junior', 'ประเภทจูเนียร์ผสม อายุรวมกันไม่เกิน 260 ปี'),
@@ -82,7 +76,6 @@ class RunningType(models.Model):
         return "%d %s" % (self.running_type_id, self.catergory)
 
 class Team(Runner):
-    team_id = models.IntegerField()
     team_name = models.CharField (max_length=100)
     resident = models.BooleanField()
     TEAM_TYPE = (
@@ -94,14 +87,12 @@ class Team(Runner):
         return "%d %s" % (self.team_id, self.team_name)
 
 class SoloRunner(Runner):
-    solo_runner_id= models.IntegerField()
     bus = models.BooleanField()
     resident = models.BooleanField()
     def __str__(self):
         return "%d" % (self.solo_runner_id)
 
 class RegisterInfo(models.Model):
-    regist_id = models.IntegerField(primary_key=True)
     payment_date = models.DateField(auto_now=False, auto_now_add=False)
     pay_inSlip = models.CharField(max_length=255)
     event_id = models.ForeignKey(
@@ -113,7 +104,6 @@ class RegisterInfo(models.Model):
     
 
 class Certificate(models.Model):
-    cer_id = models.IntegerField(primary_key=True)
     cer_url = models.CharField(max_length=255)
     runner_bib = models.ForeignKey("Runner", on_delete=models.CASCADE)
 
