@@ -56,7 +56,7 @@ ROOT_URLCONF = 'runningv2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,9 +76,9 @@ WSGI_APPLICATION = 'runningv2.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+      'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'runningThailand3',
+        'NAME': 'runningThailand2',
         'USER': 'runningThailand',
         'PASSWORD': 'runningThailand',
         'HOST': 'runningthailand2.c0nkinxa4aiv.ap-southeast-1.rds.amazonaws.com',

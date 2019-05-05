@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'bulma/css/bulma.min.css' %}">
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>Sign up</title>
+</head>
+
+<body>
+
+    {% if messg %}
+    <script>
+        alert('{{ messg }}');
+    </script>
+    {% endif %}
+    <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <img src="{% static 'img/logo.png' %}" alt="Logo" width="100px" height="88px">
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="{% url 'home' %}" class="navbar-item">
+                    Home
+                </a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <!-- <a href="{% url 'home' %}" class="button is-success is-outlined">Sign up</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="signin">
+        <div class="container is-fluid">
+            <div class="columns is-multiline is-mobile is-centered">]
+                <div class="column is-4 card columns is-multiline is-centered">
+                    <form action="/postsignup/" method="post">
+
+                        {% csrf_token %}
+                        <div class="column is-12">
+                            <h1>Sign Up</h1>
+                        </div>
+                        <div class="column is-12">
+                            <section>
+                                <div class="field">
+                                    <p class="control has-icons-left has-icons-right">
+                                        <input class="input" type="email" placeholder="Email" name="email">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="field">
+                                    <p class="control has-icons-left">
+                                        <input class="input" type="password" placeholder="Password" name="pass">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                    </p>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="column is-12">
+                            <input class="button btnme" type="submit" value="Sign up">
+                        </div>
+                        <div class="column is-12">
+                            <p>มีบัญชีแล้ว <a class="signup" href="{% url 'signin' %}">เข้าสู่ระบบ</a>
+                            </p>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<style>
+    .card {
+        width: 300px;
+        height: 400px;
+        background: #fff;
+        margin-top: 12%;
+        border-radius: 5%;
+        text-align: center;
+    }
+
+    #signin {
+        height: 100vh;
+        background: #af2f30;
+    }
+
+    .card h1 {
+        font-size: 2rem;
+        color: #af2f30;
+    }
+
+    section {
+        text-align: left;
+    }
+
+    .btnme {
+        background: #af2f30;
+        color: #fff;
+        transition: all 0.3s;
+    }
+
+    .btnme:hover {
+        background: #fff;
+        color: #af2f30;
+        border: 2px solid #af2f30;
+    }
+
+    .signup {
+        color: #af2f30;
+    }
+</style>

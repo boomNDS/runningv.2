@@ -13,14 +13,18 @@
 
 #Schedule .date_all {}
 
-#Schedule .date_select {
+.date_select {
     width: 80px;
     height: 100%;
-    background: #fff;
-    color: #AF2F30;
+    color: #fff;
     text-align: center;
     margin: 20px;
+  
     border-radius: 100%;
+}
+.doneday{
+    background: #fff;
+    color: #AF2F30;
 }
 
 #Schedule .day {
