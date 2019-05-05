@@ -14,3 +14,17 @@ def signin(request):
         'page_title': "รายการคำขอลางานของฉัน",
     }
     return render(request, template_name='signin.html', context=context)
+
+def signup(request):
+
+    context = {
+        'page_title': "รายการคำขอลางานของฉัน",
+    }
+    return render(request, template_name='signup.html', context=context)
+
+def editme(request):
+
+    context = {
+        'page_title': "รายการคำขอลางานของฉัน",
+    }
+    return render(request, template_name='editme.html', context=context)

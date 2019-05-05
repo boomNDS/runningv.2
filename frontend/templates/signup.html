@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bulma/css/bulma.min.css' %}">
     <script src="https://unpkg.com/vue"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <title>Sign in</title>
+    <title>Sign up</title>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
             <div class="columns is-multiline is-mobile is-centered">
                 <div class="column is-4 card columns is-multiline is-centered">
                     <div class="column is-12">
-                        <h1>Sign In</h1>
+                        <h1>Sign Up</h1>
                     </div>
                     <div class="column is-12">
                         <section>
@@ -71,7 +71,7 @@
                         <a class="button btnme">Sign in</a>
                     </div>
                     <div class="column is-12">
-                        <p>ยังไม่มีบัญชี <a class="signup" href="{% url 'signup' %}">สมัครสมาชิก</a>
+                        <p>มีบัญชีแล้ว <a class="signup" href="{% url 'signin' %}">เข้าสู่ระบบ</a>
                         </p>
                     </div>
                 </div>
