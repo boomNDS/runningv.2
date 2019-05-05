@@ -1,6 +1,7 @@
 from pyrebase import pyrebase
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required, permission_required
 
 config = {
     "apiKey": "AIzaSyBSR_7iWZw3gOVC3x25O_n2yzhS-V3b22M",
@@ -13,8 +14,15 @@ config = {
 }
 firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
+db = firebase.database()
 # Create your views here.
-
+@login_required
+def regis(request):
+    context = {
+        'page_title': "รายการคำขอลางานของฉัน",
+        'e': '',
+    }
+    return render(request, template_name='register/step1.html', context=context)
 
 def index(request):
 
@@ -32,20 +40,23 @@ def signin(request):
     }
     return render(request, template_name='signin.html', context=context)
 
+
 def postsign(request):
     email = request.POST.get('email')
     passw = request.POST.get("pass")
     try:
-        user = authe.sign_in_with_email_and_password(email,passw)
+        user = authe.sign_in_with_email_and_password(email, passw)
     except:
         message = "invalid cerediantials"
-        return render(request,"signin.html",{"msg":message})
+        return render(request, "signin.html", {"msg": message})
     print(user['idToken'])
-    return render(request, "index.html",{"e":email})
-    
+    return render(request, "index.html", {"e": email})
+
+
 def logout(request):
     auth.logout(request)
-    return render(request,'signin.html')
+    return render(request, 'signin.html')
+
 
 def signup(request):
 
@@ -54,23 +65,39 @@ def signup(request):
     }
     return render(request, template_name='signup.html', context=context)
 
+
 def postsignup(request):
 
-    name=request.POST.get('name')
-    email=request.POST.get('email')
-    passw=request.POST.get('pass')
+    fname = request.POST.get('fname')
+    lname = request.POST.get('lname')
+    email = request.POST.get('email')
+    passw = request.POST.get('pass')
     try:
-        user=authe.create_user_with_email_and_password(email,passw)
+        user = authe.create_user_with_email_and_password(email, passw)
+        uid = user['localId']
+        data = {"fname": fname, "lname": lname}
+        db.child("users").child(uid).child("details").set(data)
     except:
-        message="Unable to create account try again"
-        return render(request,"signup.html",{"messg":message})
-        
+        message = "Unable to create account try again"
+        return render(request, "signup.html", {"messg": message})
 
-    
-    return render(request,"signIn.html")
+    return render(request, "signin.html")
+
+    return render(request, "signIn.html")
+
+
 def editme(request):
-
+    user = authe.current_user
+    uid = user['localId']
+    if request.method == 'POST':
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        newdata = {"fname": fname, "lname": lname}
+        db.child("users").child(uid).child("details").update(newdata)
+    data = db.child("users").child(uid).child("details").get()
+    jsondata = data.val()
     context = {
-        'page_title': "รายการคำขอลางานของฉัน",
+        'uid': uid,
+        'data': jsondata
     }
     return render(request, template_name='editme.html', context=context)
