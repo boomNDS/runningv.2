@@ -77,7 +77,8 @@ class RunningType(models.Model):
     def __str__(self):
         return "%s" % (self.catergory)
 
-class Team(Runner):
+
+class Team(models.Model):
     team_name = models.CharField (max_length=100)
     resident = models.BooleanField()
     TEAM_TYPE = (
@@ -95,7 +96,8 @@ class SoloRunner(models.Model):
     
 class RegisterInfo(models.Model):
     payment_date = models.DateField(auto_now=False, auto_now_add=False)
-    pay_inSlip = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None, null=True, blank=True)
+    pay_inSlip = models.ImageField(upload_to='pay_inSlip/%Y/%m/%D', height_field=None,
+                                   width_field=None, max_length=None, null=True, blank=True)
     event_id = models.ForeignKey(
         "Event", on_delete=models.PROTECT, null=False, blank=False)
     running_type_id = models.ForeignKey("RunningType", on_delete=models.PROTECT, null=False, blank=False)
