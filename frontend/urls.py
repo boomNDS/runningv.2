@@ -8,6 +8,7 @@ urlpatterns = [
     path('editme', views.editme, name='editme'),
     path('test', views.test, name='test'),
     path('regis', views.regis, name='regis'),
+    path('live', views.live, name='live'),
     url(r'^postsign/', views.postsign),
     url(r'^signup/', views.signup, name='signup'),
     url(r'^postsignup/', views.postsignup, name='postsignup'),

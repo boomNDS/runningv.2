@@ -6,14 +6,14 @@ from django.forms import formset_factory
 def registerfinish(request):
 
     context = {
-        'page_title': "รายการคำขอลางานของฉัน",
+        'e': request.session.get('my_email', ''),
     }
     return render(request, template_name='registerfinish.html', context=context)
 
 def index(request):
 
     context = {
-        'page_title': "รายการคำขอลางานของฉัน",
+        'e': request.session.get('my_email', ''),
     }
     return render(request, template_name='aindex.html', context=context)
 
@@ -50,7 +50,8 @@ def regist_create_view(request):
             'user_email': request.session['my_email']
         })
     context = {
-        'form': form
+        'form': form,
+        'e': request.session.get('my_email', ''),
     }
     return render(request, 'regist_create.html', context)
 
@@ -63,7 +64,8 @@ def runner_create_view(request):
     else:
         form = RunnerForm()
     context = {
-        'form': form
+        'form': form,
+        'e': request.session.get('my_email', ''),
     }
     return render(request, 'runner_create.html', context)
 
@@ -75,7 +77,8 @@ def manager_create_view(request):
     else:
         form = ManagerForm()
     context = {
-        'form': form
+        'form': form,
+        'e': request.session.get('my_email', ''),
     }
     return render(request, 'manager_create.html', context)
 
@@ -153,12 +156,6 @@ def solo_runner_create_view(request):
         form = SoloRunnerform(request.POST)
         formset = RunnerFormSet(request.POST)
         if(form.is_valid):
-<<<<<<< HEAD
-            form.save(commit=False)
-            formset.save()
-            form.runner_bib = formset.id
-            form.save()
-=======
             solo = form.save(commit=False)
             RunnerFormSet = formset_factory(RunnerForm, extra=0)
             formset = RunnerFormSet(request.POST)
@@ -169,7 +166,6 @@ def solo_runner_create_view(request):
                     solo.save()
                 return render(request, 'registerfinish.html')
 
->>>>>>> 153f47c40cd5a98d2a859d33ab7998608276f788
     else:
         form = SoloRunnerform()
         RunnerFormSet = formset_factory(RunnerForm, extra=0)
@@ -181,7 +177,8 @@ def solo_runner_create_view(request):
                 ])
     context = {
         'form': form,
-        'formset': formset
+        'formset': formset,
+        'e': request.session.get('my_email', ''),
     }
     return render(request, 'solo_runner_create.html', context)
 
@@ -195,6 +192,7 @@ def driver_create_view(request):
         form = Driverform
     context = {
         'form': form,
+        'e': request.session.get('my_email', ''),
         
     }
     return render(request, 'driver_create.html', context)

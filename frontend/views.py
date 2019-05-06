@@ -17,10 +17,17 @@ authe = firebase.auth()
 db = firebase.database()
 # Create your views here.
 
+def live(request):
+    live = Runner_Checkpoint.objects.all()
+    context = {
+        'e': request.session.get('my_email', ''),
+        'live': live
+    }
+    return render(request, template_name='live.html', context=context)
+
 def regis(request):
     context = {
-        'page_title': "รายการคำขอลางานของฉัน",
-        'e': '',
+        'e': request.session.get('my_email', ''),
     }
     return render(request, template_name='register/step1.html', context=context)
 
@@ -28,7 +35,6 @@ def index(request):
     new = News.objects.all()
     allteam = Team.objects.all()
     context = {
-        'page_title': "รายการคำขอลางานของฉัน",
         'e': request.session.get('my_email', ''),
         'new': new,
         'allteam': allteam
@@ -39,7 +45,6 @@ def test(request):
     new = News.objects.all()
     allteam = Team.objects.all()
     context = {
-        'page_title': "รายการคำขอลางานของฉัน",
         'e': request.session.get('my_email', ''),
         'new': new,
         'allteam': allteam
@@ -50,7 +55,7 @@ def test(request):
 def signin(request):
 
     context = {
-        'page_title': "รายการคำขอลางานของฉัน",
+        'e': request.session.get('my_email', ''),
     }
     return render(request, template_name='signin.html', context=context)
 
@@ -73,7 +78,7 @@ def logout(request):
 def signup(request):
 
     context = {
-        'page_title': "รายการคำขอลางานของฉัน",
+        'e': request.session.get('my_email', ''),
     }
     return render(request, template_name='signup.html', context=context)
 
