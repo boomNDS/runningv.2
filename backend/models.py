@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
+
 class Runner(models.Model):
     SIZE = (
         ('s', 'S'),
@@ -41,7 +42,7 @@ class Manager(models.Model):
     team_id = models.OneToOneField("Team", on_delete=models.PROTECT, null=False, blank=False)
 
     def __str__(self):
-        return "%s %s %s %s" % (self.m_firstname, self.m_lastname, self.m_phone)
+        return " %s %s %s" % (self.m_firstname, self.m_lastname, self.m_phone)
 
 class Event(models.Model):
     event_name = models.CharField(max_length=50)
@@ -121,7 +122,7 @@ class Runner_Checkpoint(models.Model):
         unique_together = (('runner_bib', 'checkpoint_no'),)
 
     def __str__(self):
-        return "%d %d" % (self.runner_bib, self.checkpoint_no)
+        return "%s %s" % (self.runner_bib, self.checkpoint_no)
 
 class News(models.Model):
     eng_content = models.TextField()

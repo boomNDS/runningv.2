@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
-# Register your models here.
 
+# Register your models here.
 class CheckPointAdmin(admin.ModelAdmin):
     list_display = ['id', 'round_no', 'lap_distant', 'place','total_distant']
     list_per_page = 10
@@ -19,10 +19,10 @@ class EventAdmin(admin.ModelAdmin):
 admin.site.register(Event,EventAdmin)
 
 class RunnerAdmin(admin.ModelAdmin):
-    list_display = ['id', 'regist_id', 'runner_firstname','runner_lastname','size']
+    list_display = ['id','team_id', 'regist_id', 'runner_firstname','runner_lastname','size']
     list_per_page = 10
-    list_filter = ['regist_id']
-    search_fields = ['regist_id']
+    list_filter = ['regist_id','team_id']
+    search_fields = ['regist_id','team_id']
 admin.site.register(Runner,RunnerAdmin)
 
 class RunningTypeAdmin(admin.ModelAdmin):
@@ -33,7 +33,7 @@ class RunningTypeAdmin(admin.ModelAdmin):
 admin.site.register(RunningType,RunningTypeAdmin)
 
 class SoloRunnerAdmin(admin.ModelAdmin):
-    list_display = ['id', 'bus','resident']
+    list_display = ['id', 'bus','resident','runner_bib']
     list_per_page = 10
     # list_filter = ['catergory']
     # search_fields = ['catergory']
