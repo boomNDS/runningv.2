@@ -17,7 +17,15 @@
 <body>
     <div class="container">
         <div class="notification">
-            <h1>solo</h1>
+          <h1>Solo Runner</h1>
+            <form method="POST" action="{% url 'team' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <table>
+                    {{ formset }}
+                </table>  
+                <input class="button is-primary is-outlined" type="submit" value="save">
+            </form>
         </div>
     </div>
 </body>

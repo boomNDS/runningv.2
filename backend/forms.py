@@ -4,9 +4,10 @@ class RegisterForm(forms.ModelForm):
     registerinfo_id = forms.IntegerField(required=False, widget=forms.HiddenInput)
     class Meta:
         model = RegisterInfo
-        exclude = []
+        exclude = ['status']
         widgets = {
             'payment_date': forms.DateInput(attrs={'type': 'date'}),
+            'user_email': forms.EmailInput(attrs={'readonly': 'readonly'}),
         }
 class RunnerForm(forms.ModelForm):
 

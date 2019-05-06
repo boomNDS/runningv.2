@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from backend.models import *
 from .forms import *
+from django.forms import formset_factory
 # Create your views here.
 def index(request):
 
@@ -12,11 +13,31 @@ def index(request):
 def regist_create_view(request):
     if(request.method == 'POST'):
         form = RegisterForm(request.POST)
-        
         if(form.is_valid):
             form.save()
+            running_type_id = form.cleaned_data['running_type_id']
+            if(str(running_type_id) == 'solo runner'):
+                form = Teamform()
+                RunnerFormSet = formset_factory(RunnerForm)
+                formset = RunnerFormSet()
+                context = {
+                    'form': form,
+                    'formset':formset
+                }
+                return render(request, 'solo_runner_create.html', context)
+
+            else:
+                form = Teamform()
+                context = {
+                    'form': form
+                }
+                return render(request, 'team_create.html', context)
+
+            
     else:
-        form = RegisterForm()
+        form = RegisterForm(initial={
+            'user_email': request.session['my_email']
+        })
     context = {
         'form': form
     }
@@ -83,4 +104,5 @@ def driver_create_view(request):
         'form': form
     }
     return render(request, 'driver_create.html', context)
+
 
