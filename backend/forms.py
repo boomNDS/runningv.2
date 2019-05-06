@@ -1,11 +1,15 @@
 from django import forms
 from .models import *
 class RegisterForm(forms.ModelForm):
-     class Meta:
+    registerinfo_id = forms.IntegerField(required=False, widget=forms.HiddenInput)
+    class Meta:
         model = RegisterInfo
-        fields = '__all__'
-
+        exclude = []
+        widgets = {
+            'payment_date': forms.DateInput(attrs={'type': 'date'}),
+        }
 class RunnerForm(forms.ModelForm):
+
      class Meta:
         model = Runner
         fields = '__all__'
