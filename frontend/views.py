@@ -1,7 +1,7 @@
 from pyrebase import pyrebase
 from django.shortcuts import render,redirect
 from django.contrib import auth
-from backend import models
+from backend.models import *
 
 config = {
     "apiKey": "AIzaSyBSR_7iWZw3gOVC3x25O_n2yzhS-V3b22M",
@@ -25,12 +25,26 @@ def regis(request):
     return render(request, template_name='register/step1.html', context=context)
 
 def index(request):
-
+    new = News.objects.all()
+    allteam = Team.objects.all()
     context = {
         'page_title': "รายการคำขอลางานของฉัน",
         'e': request.session.get('my_email', ''),
+        'new': new,
+        'allteam': allteam
     }
     return render(request, template_name='index.html', context=context)
+
+def test(request):
+    new = News.objects.all()
+    allteam = Team.objects.all()
+    context = {
+        'page_title': "รายการคำขอลางานของฉัน",
+        'e': request.session.get('my_email', ''),
+        'new': new,
+        'allteam': allteam
+    }
+    return render(request, template_name='test.html', context=context)
 
 
 def signin(request):

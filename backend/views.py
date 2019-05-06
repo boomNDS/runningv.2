@@ -113,9 +113,14 @@ def team_create_view(request):
     return render(request, 'team_create.html', context)
 
 def solo_runner_create_view(request):
+    RunnerFormSet = formset_factory(RunnerForm, extra=0)
     if(request.method=='POST'):
         form = SoloRunnerform(request.POST)
+        formset = RunnerFormSet(request.POST)
         if(form.is_valid):
+            form.save(commit=False)
+            formset.save()
+            form.runner_bib = formset.id
             form.save()
     else:
         form = SoloRunnerform
