@@ -30,7 +30,7 @@ class Teamform(forms.ModelForm):
 class SoloRunnerform(forms.ModelForm):
     class Meta:
         model = SoloRunner
-        fields = '__all__'
+        exclude = ['runner_bib']
 
 class Driverform(forms.ModelForm):
     class Meta:

@@ -18,11 +18,10 @@
     {% include 'nav.html' %}
     <div class="container">
         <div class="notification">
-            <h1>Solo Runner</h1>
-            <form method="POST" action="{% url 'team' %}">
+            <form method="POST" action="{% url 'solo_runner' %}">
                 {% csrf_token %}
+                <h1>Solo Runner</h1>
                 {{ form.as_p }}
-                <h1>Runner</h1>
                 <center>
                 <table>
                     {{ formset }}

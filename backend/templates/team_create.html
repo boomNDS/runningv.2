@@ -17,19 +17,29 @@
     {% include 'nav.html' %}
     <div class="container">
         <div class="notification">
-            <h1>Team</h1>
+            {% if team_type %}
+                <h1>{{ team_type|capfirst }}</h1>
+            {% else %}
+                <h1>Team</h1>
+            {% endif %}
+            
             <form method="POST" action="{% url 'team' %}">
                 {% csrf_token %}
-                {{ form.as_p }}
-
-                {{ formset.management_form }}
-                <div class="columns is-multiline is-mobile" style="text-align: left">
-                    {% for form in formset %}
-                    <div class="column is-half">
-                        {{ form.as_p }}
+                
+                {% if form.as_p %}
+                    {{ form.as_p }}
+                
+                {% endif %}
+                {% if formset %}
+                    {{ formset.management_form }}
+                    <div class="columns is-multiline is-mobile" style="text-align: left">
+                        {% for form in formset %}
+                            <div class="column is-half">
+                                {{ form.as_p }}
+                            </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
+                {% endif %}
                 <input class="button is-primary is-outlined" type="submit" value="save">
             </form>
         </div>
