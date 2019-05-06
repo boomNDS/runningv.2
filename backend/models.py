@@ -97,18 +97,25 @@ class SoloRunner(models.Model):
     
 class RegisterInfo(models.Model):
     payment_date = models.DateField(auto_now=False, auto_now_add=False)
-    pay_inSlip = models.ImageField(upload_to='pay_inSlip/%Y/%m/%D', height_field=None,
+    pay_inSlip = models.ImageField(upload_to='pay_inSlip/%Y %m %D', height_field=None,
                                    width_field=None, max_length=None, null=True, blank=True)
     event_id = models.ForeignKey(
         "Event", on_delete=models.PROTECT, null=False, blank=False)
     running_type_id = models.ForeignKey("RunningType", on_delete=models.PROTECT, null=False, blank=False)
     user_email = models.EmailField(max_length=254)
+    STATUS = (
+        ('Not paid', 'ยังไม่ได้ชำระเงิน'),
+        ('Pending', 'รอการตรวจสอบ'),
+        ('Already Paid', 'ชำระเงินแล้ว'),
+    )
+    status = models.CharField(choices=STATUS, max_length=100, default='Not paid')
     def __str__(self):
         return "%s" % (self.user_email)
     
 
 class Certificate(models.Model):
-    cer_url = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None, null=True, blank=True)
+    cer_url = models.ImageField(upload_to='cetificate/', height_field=None,
+                                width_field=None, max_length=None, null=True, blank=True)
     runner_bib = models.ForeignKey("Runner", on_delete=models.CASCADE)
 
 
