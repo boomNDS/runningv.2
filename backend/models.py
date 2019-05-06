@@ -13,12 +13,14 @@ class Runner(models.Model):
     size = models.CharField(choices=SIZE,max_length=3)
     runner_firstname = models.CharField(max_length=50)
     runner_lastname = models.CharField(max_length=50)
-    regist_id =  models.ForeignKey("RegisterInfo",on_delete=models.PROTECT)
+    regist_id =  models.ForeignKey("RegisterInfo",on_delete=models.PROTECT, null=False)
     SEX = (
         ('male', 'Male'),
         ('female', 'Female'),
     )
     sex = models.CharField(choices=SEX, max_length=50)
+    team_id = models.ForeignKey(
+        "Team", on_delete=models.PROTECT, null=True, blank=True)
     def __str__(self):
         return self.runner_firstname+ " "+ self.runner_lastname+ " " + self.sex
 
@@ -86,13 +88,14 @@ class Team(Runner):
     def __str__(self):
         return "%s" % (self.team_name)
 
-class SoloRunner(Runner):
+class SoloRunner(models.Model):
     bus = models.BooleanField()
     resident = models.BooleanField()
-
+    runner_bib = models.ForeignKey("Runner", on_delete=models.PROTECT , null = False)
+    
 class RegisterInfo(models.Model):
     payment_date = models.DateField(auto_now=False, auto_now_add=False)
-    pay_inSlip = models.ImageField()
+    pay_inSlip = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None, null=True, blank=True)
     event_id = models.ForeignKey(
         "Event", on_delete=models.PROTECT, null=False, blank=False)
     running_type_id = models.ForeignKey("RunningType", on_delete=models.PROTECT, null=False, blank=False)
@@ -102,7 +105,7 @@ class RegisterInfo(models.Model):
     
 
 class Certificate(models.Model):
-    cer_url = models.CharField(max_length=255)
+    cer_url = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None, null=True, blank=True)
     runner_bib = models.ForeignKey("Runner", on_delete=models.CASCADE)
 
 
