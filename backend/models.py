@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Runner(models.Model):
-    bib = models.IntegerField(primary_key=True)
     SIZE = (
         ('s', 'S'),
         ('m', 'M'),
