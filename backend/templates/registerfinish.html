@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'bulma/css/bulma.min.css' %}">
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>Register finish</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="notification">
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-12">
+                    <h1>Register finish</h1>
+                </div>
+                <div class="column is-12">
+                    <span class="tag is-warning is-large">รอการยืนยัน</span>
+                    <span class="tag is-success is-large">ชำระเงินเรียบร้อย</span>
+                </div>
+                <div class="column is-12">
+                    <a class="button is-primary is-outlined">แก้ไขข้อมูล</a>
+                    <a class="button is-link is-outlined">อัพโหลดหลักฐานการโอนเงิน</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+<style>
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    * {
+        font-family: 'Kanit', sans-serif;
+    }
+
+    .notification {
+        color: #232323;
+        text-align: center;
+    }
+
+    body {
+        background: #af2f30;
+        height: 100vh;
+    }
+
+    input,
+    select {
+        margin: 10px;
+        padding: 2px;
+    }
+
+    .container {
+        padding: 100px 30px;
+    }
+</style>
