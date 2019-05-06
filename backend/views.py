@@ -39,29 +39,8 @@ def regist_create_view(request):
 
             else:
                 form = Teamform()
-                RunnerFormSet = formset_factory(RunnerForm, extra=7)
-                formset = RunnerFormSet(initial=[
-                    {
-                        'regist_id': instance.pk,
-                    }, {
-                        'regist_id': instance.pk,
-                    }, {
-                        'regist_id': instance.pk,
-                    }, {
-                        'regist_id': instance.pk,
-                    }, {
-                        'regist_id': instance.pk,
-                    }, {
-                        'regist_id': instance.pk,
-                    }, {
-                        'regist_id': instance.pk,
-                    }, {
-                        'regist_id': instance.pk,
-                    }
-                ])
                 context = {
                     'form': form,
-                    'formset': formset
                 }
                 return render(request, 'team_create.html', context)
 
@@ -104,11 +83,67 @@ def team_create_view(request):
     if(request.method=='POST'):
         form = Teamform(request.POST)
         if(form.is_valid):
-            form.save()
+            instance =  form.save()
+            team_type = form.cleaned_data['team_type']
+            if str(team_type) == 'team need runner':
+                RunnerFormSet = formset_factory(RunnerForm, extra=7)
+                formset = RunnerFormSet(initial=[
+                {
+                    'regist_id': instance.pk,
+                }, {
+                    'regist_id': instance.pk,
+                }, {
+                    'regist_id': instance.pk,
+                }, {
+                    'regist_id': instance.pk,
+                }, {
+                    'regist_id': instance.pk,
+                }, {
+                    'regist_id': instance.pk,
+                }, {
+                    'regist_id': instance.pk,
+                }, {
+                    'regist_id': instance.pk,
+                }
+                ])
+            else:
+                RunnerFormSet = formset_factory(RunnerForm, extra=0)
+                formset = RunnerFormSet(initial=[
+                {
+                    'regist_id': instance.pk,
+                }
+                ])
+        context = {
+        'formset': formset,
+        'team_type': str(team_type)
+        }
+        return render(request, 'team_create.html', context)
     else:
         form = Teamform()
+        RunnerFormSet = formset_factory(RunnerForm, extra=7)
+        registinfo = RegisterInfo.objects.get(user_email= request.session('my_email'))
+        formset = RunnerFormSet(initial=[
+            {
+                'regist_id': registinfo.pk,
+            }, {
+                'regist_id': registinfo.pk,
+            }, {
+                'regist_id': registinfo.pk,
+            }, {
+                'regist_id': registinfo.pk,
+            }, {
+                'regist_id': registinfo.pk,
+            }, {
+                'regist_id': registinfo.pk,
+            }, {
+                'regist_id': registinfo.pk,
+            }, {
+                'regist_id': registinfo.pk,
+            }
+        ])
     context = {
-        'form': form
+        'form': form,
+        'formset': formset
     }
     return render(request, 'team_create.html', context)
 
@@ -127,9 +162,17 @@ def solo_runner_create_view(request):
                 return render(request, 'registerfinish.html')
 
     else:
-        form = SoloRunnerform
+        form = SoloRunnerform()
+        RunnerFormSet = formset_factory(RunnerForm, extra=0)
+        registinfo = RegisterInfo.objects.get(user_email= request.session('my_email'))
+        formset = RunnerFormSet(initial=[
+                    {
+                        'regist_id': registinfo.pk,
+                    }
+                ])
     context = {
-        'form': form
+        'form': form,
+        'formset': formset
     }
     return render(request, 'solo_runner_create.html', context)
 
@@ -142,7 +185,8 @@ def driver_create_view(request):
     else:
         form = Driverform
     context = {
-        'form': form
+        'form': form,
+        
     }
     return render(request, 'driver_create.html', context)
 
