@@ -10,6 +10,9 @@ urlpatterns = [
     path('team/', views.team_create_view, name='team'),
     path('solo_runner/', views.solo_runner_create_view, name='solo_runner'),
     path('driver/', views.driver_create_view, name='driver'),
-    path('registerfinish/', views.registerfinish, name='registerfinish')
+    path('registerfinish/', views.registerfinish, name='registerfinish'),
+    path('team_for_runner/', views.team_for_runner_create_view,
+         name='team_for_runner')
+
 
 ]
