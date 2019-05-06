@@ -20,7 +20,7 @@ class Runner(models.Model):
     )
     sex = models.CharField(choices=SEX, max_length=50)
     def __str__(self):
-        return str(self.bib) + " "+ self.runner_firstname+ " "+ self.runner_lastname+ " " + self.sex
+        return self.runner_firstname+ " "+ self.runner_lastname+ " " + self.sex
 
 
 class Driver(models.Model):
@@ -92,7 +92,7 @@ class SoloRunner(Runner):
 
 class RegisterInfo(models.Model):
     payment_date = models.DateField(auto_now=False, auto_now_add=False)
-    pay_inSlip = models.CharField(max_length=255)
+    pay_inSlip = models.ImageField()
     event_id = models.ForeignKey(
         "Event", on_delete=models.PROTECT, null=False, blank=False)
     running_type_id = models.ForeignKey("RunningType", on_delete=models.PROTECT, null=False, blank=False)
