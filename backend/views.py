@@ -81,7 +81,7 @@ def manager_create_view(request):
         'e': request.session.get('my_email', ''),
     }
     return render(request, 'manager_create.html', context)
-
+team_type = ""
 def team_create_view(request):
     if(request.method=='POST'):
         form = Teamform(request.POST)
@@ -92,35 +92,42 @@ def team_create_view(request):
                 RunnerFormSet = formset_factory(RunnerForm, extra=7)
                 formset = RunnerFormSet(initial=[
                 {
-                    'regist_id': instance.pk,
+                    'team_id': instance.pk,
                 }, {
-                    'regist_id': instance.pk,
+                    'team_id': instance.pk,
+                    
                 }, {
-                    'regist_id': instance.pk,
+                    'team_id': instance.pk,
+                    
                 }, {
-                    'regist_id': instance.pk,
+                    'team_id': instance.pk,
+                    
                 }, {
-                    'regist_id': instance.pk,
+                    'team_id': instance.pk,
+                    
                 }, {
-                    'regist_id': instance.pk,
+                    'team_id': instance.pk,
+                    
                 }, {
-                    'regist_id': instance.pk,
+                    'team_id': instance.pk,
+                    
                 }, {
-                    'regist_id': instance.pk,
+                    'team_id': instance.pk,
+                    
                 }
                 ])
             else:
                 RunnerFormSet = formset_factory(RunnerForm, extra=0)
                 formset = RunnerFormSet(initial=[
                 {
-                    'regist_id': instance.pk,
+                    'team_id': instance.pk,
                 }
                 ])
         context = {
         'formset': formset,
         'team_type': str(team_type)
         }
-        return render(request, 'team_create.html', context)
+        return render(request, 'team_for_runner_create.html', context)
     else:
         form = Teamform()
         RunnerFormSet = formset_factory(RunnerForm, extra=7)
@@ -148,7 +155,28 @@ def team_create_view(request):
         'form': form,
         'formset': formset
     }
-    return render(request, 'team_create.html', context)
+    return render(request, 'team_for_runner_create.html', context)
+
+
+def team_for_runner_create_view(request):
+    if(request.method=='POST'):
+        if str(team_type) == 'team need runner':
+             RunnerFormSet = formset_factory(RunnerForm, extra=7)
+        else:
+             RunnerFormSet = formset_factory(RunnerForm, extra=0)
+        formset = RunnerFormSet(request.POST)
+        if formset.is_valid():
+            for runner_form in formset:
+                runner_form.save()
+            form = ManagerForm()
+        
+            context = {
+        '       form': form,    
+            }
+    return render(request, 'manager_create.html', context)
+
+
+
 
 def solo_runner_create_view(request):
     RunnerFormSet = formset_factory(RunnerForm, extra=0)

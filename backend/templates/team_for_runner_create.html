@@ -10,22 +10,34 @@
     <script src="https://unpkg.com/vue"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <title>Manager</title>
+    <title>Team</title>
 </head>
 
 <body>
     {% include 'nav.html' %}
     <div class="container">
         <div class="notification">
-            <h1>Manager</h1>
-            <form method="POST" action="{% url 'manager' %}">
+            {% if team_type %}
+                <h1>{{ team_type|capfirst }}</h1>
+            {% else %}
+                <h1>Team</h1>
+            {% endif %}
+            <form method="POST" action="{% url 'team_for_runner' %}">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% if formset %}
+                    {{ formset.management_form }}
+                    <div class="columns is-multiline is-mobile" style="text-align: left">
+                        {% for form in formset %}
+                            <div class="column is-half">
+                                {{ form.as_p }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <input class="button is-primary is-outlined" type="submit" value="save">
             </form>
         </div>
     </div>
-
 
 </body>
 
