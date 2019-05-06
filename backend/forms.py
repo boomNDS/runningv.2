@@ -30,4 +30,4 @@ class SoloRunnerform(forms.ModelForm):
 class Driverform(forms.ModelForm):
     class Meta:
         model = Driver
-        fields = '__all__'
+        exclude = ['team_id']

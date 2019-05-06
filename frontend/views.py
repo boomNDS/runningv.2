@@ -2,7 +2,7 @@ from pyrebase import pyrebase
 from django.shortcuts import render,redirect
 from django.contrib import auth
 from backend import models
-from backend import form
+
 config = {
     "apiKey": "AIzaSyBSR_7iWZw3gOVC3x25O_n2yzhS-V3b22M",
     "authDomain": "runningthailand-dc7f9.firebaseapp.com",
