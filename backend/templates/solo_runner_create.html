@@ -15,15 +15,16 @@
 </head>
 
 <body>
+    {% include 'nav.html' %}
     <div class="container">
         <div class="notification">
-          <h1>Solo Runner</h1>
+            <h1>Solo Runner</h1>
             <form method="POST" action="{% url 'team' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <table>
                     {{ formset }}
-                </table>  
+                </table>
                 <input class="button is-primary is-outlined" type="submit" value="save">
             </form>
         </div>
@@ -33,9 +34,10 @@
 </html>
 <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 <style>
-    h1{
+    h1 {
         font-size: 1.5rem;
     }
+
     * {
         font-family: 'Kanit', sans-serif;
     }
@@ -45,15 +47,18 @@
         text-align: center;
     }
 
-    body{
+    body {
         background: #af2f30;
         height: 100vh;
     }
-    input,select{
+
+    input,
+    select {
         margin: 10px;
         padding: 2px;
     }
-    .container{
+
+    .container {
         padding: 100px 30px;
     }
 </style>
