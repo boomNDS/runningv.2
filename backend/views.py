@@ -116,7 +116,16 @@ def solo_runner_create_view(request):
     if(request.method=='POST'):
         form = SoloRunnerform(request.POST)
         if(form.is_valid):
-            form.save()
+            solo = form.save(commit=False)
+            RunnerFormSet = formset_factory(RunnerForm, extra=0)
+            formset = RunnerFormSet(request.POST)
+            if formset.is_valid():
+                for runner_form in formset:
+                    instance =   runner_form.save()
+                    solo.runner_bib = instance
+                    solo.save()
+                return render(request, 'registerfinish.html')
+
     else:
         form = SoloRunnerform
     context = {
