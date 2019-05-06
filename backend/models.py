@@ -113,7 +113,8 @@ class RegisterInfo(models.Model):
     
 
 class Certificate(models.Model):
-    cer_url = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None, null=True, blank=True)
+    cer_url = models.ImageField(upload_to='cetificate/', height_field=None,
+                                width_field=None, max_length=None, null=True, blank=True)
     runner_bib = models.ForeignKey("Runner", on_delete=models.CASCADE)
 
 
@@ -127,7 +128,7 @@ class Runner_Checkpoint(models.Model):
         unique_together = (('runner_bib', 'checkpoint_no'),)
 
     def __str__(self):
-        return "%d %d" % (self.runner_bib, self.checkpoint_no)
+        return "%s %s" % (self.runner_bib, self.checkpoint_no)
 
 class News(models.Model):
     eng_content = models.TextField()
