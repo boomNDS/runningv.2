@@ -3,6 +3,13 @@ from backend.models import *
 from .forms import *
 from django.forms import formset_factory
 # Create your views here.
+def registerfinish(request):
+
+    context = {
+        'page_title': "รายการคำขอลางานของฉัน",
+    }
+    return render(request, template_name='registerfinish.html', context=context)
+
 def index(request):
 
     context = {
