@@ -14,22 +14,47 @@ def regist_create_view(request):
     if(request.method == 'POST'):
         form = RegisterForm(request.POST)
         if(form.is_valid):
-            form.save()
+            instance = form.save()
             running_type_id = form.cleaned_data['running_type_id']
             if(str(running_type_id) == 'solo runner'):
-                form = Teamform()
-                RunnerFormSet = formset_factory(RunnerForm)
-                formset = RunnerFormSet()
+                soloform = SoloRunnerform()
+                RunnerFormSet = formset_factory(RunnerForm, extra=0)
+                formset = RunnerFormSet(initial=[
+                    {
+                        'regist_id': instance.pk,
+                    }
+                ])
                 context = {
-                    'form': form,
+                    'form': soloform,
                     'formset':formset
                 }
                 return render(request, 'solo_runner_create.html', context)
 
             else:
                 form = Teamform()
+                RunnerFormSet = formset_factory(RunnerForm, extra=7)
+                formset = RunnerFormSet(initial=[
+                    {
+                        'regist_id': instance.pk,
+                    }, {
+                        'regist_id': instance.pk,
+                    }, {
+                        'regist_id': instance.pk,
+                    }, {
+                        'regist_id': instance.pk,
+                    }, {
+                        'regist_id': instance.pk,
+                    }, {
+                        'regist_id': instance.pk,
+                    }, {
+                        'regist_id': instance.pk,
+                    }, {
+                        'regist_id': instance.pk,
+                    }
+                ])
                 context = {
-                    'form': form
+                    'form': form,
+                    'formset': formset
                 }
                 return render(request, 'team_create.html', context)
 
