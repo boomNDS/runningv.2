@@ -28,7 +28,7 @@ def index(request):
 
     context = {
         'page_title': "รายการคำขอลางานของฉัน",
-        'e': '',
+        'e': request.session.get('my_email', ''),
     }
     return render(request, template_name='index.html', context=context)
 
