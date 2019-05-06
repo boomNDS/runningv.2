@@ -29,7 +29,7 @@ class Driver(models.Model):
     d_firstname = models.CharField(max_length=50)
     d_lastname = models.CharField(max_length=50)
     d_phone = models.CharField(max_length=10)
-    team_id = models.ForeignKey("Team", on_delete=models.PROTECT, null=False, blank=False)
+    team_id = models.OneToOneField("Team", on_delete=models.PROTECT, null=False, blank=False)
     def __str__(self):
         return self.d_firstname+" "+self.d_lastname+" "+self.d_phone
 
@@ -38,7 +38,7 @@ class Manager(models.Model):
     m_lastname = models.CharField(max_length=50)
     m_phone = models.CharField(max_length=10)
     m_email = models.EmailField(max_length=254)
-    team_id = models.ForeignKey("Team", on_delete=models.PROTECT, null=False, blank=False)
+    team_id = models.OneToOneField("Team", on_delete=models.PROTECT, null=False, blank=False)
 
     def __str__(self):
         return "%s %s %s %s" % (self.m_firstname, self.m_lastname, self.m_phone)
