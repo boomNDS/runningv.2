@@ -14,6 +14,7 @@ config = {
 }
 firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
+db = firebase.database()
 # Create your views here.
 
 def regis(request):
@@ -42,13 +43,14 @@ def signin(request):
 def postsign(request):
     email = request.POST.get('email')
     passw = request.POST.get("pass")
+    request.session['my_email'] = email
     try:
         user = authe.sign_in_with_email_and_password(email,passw)
     except:
         message = "invalid cerediantials"
         return render(request,"signin.html",{"msg":message})
     print(user['idToken'])
-    return render(request, "index.html",{"e":email})
+    return render(request, "index.html",{"e":request.session['my_email']})
     
 def logout(request):
     auth.logout(request)
@@ -63,22 +65,34 @@ def signup(request):
 
 def postsignup(request):
 
-    name=request.POST.get('name')
+    fname = request.POST.get('fname')
+    lname = request.POST.get('lname')
     email=request.POST.get('email')
     passw=request.POST.get('pass')
     try:
         user=authe.create_user_with_email_and_password(email,passw)
+        uid = user['localId']
+        data = {"fname": fname, "lname": lname}
+        db.child("users").child(uid).child("details").set(data)
     except:
         message="Unable to create account try again"
-        return render(request,"signup.html",{"messg":message})
-        
-
-    
+        return render(request,"signup.html",{"messg":message})    
     return render(request,"signIn.html")
-def editme(request):
 
+def editme(request):
+    user = authe.current_user
+    uid = user['localId']
+    if request.method == 'POST':
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        newdata = {"fname": fname, "lname": lname}
+        db.child("users").child(uid).child("details").update(newdata)
+    data = db.child("users").child(uid).child("details").get()
+    jsondata = data.val()
     context = {
-        'page_title': "รายการคำขอลางานของฉัน",
+        'e': request.session['my_email'],
+        'uid': uid,
+        'data': jsondata
     }
     return render(request, template_name='editme.html', context=context)
 
