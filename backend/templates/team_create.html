@@ -21,6 +21,13 @@
             <form method="POST" action="{% url 'team' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
+                
+                {{ formset.management_form }}
+                <table>
+                    {% for form in formset %}
+                        {{ form }}
+                    {% endfor %}    
+                </table>
                 <input class="button is-primary is-outlined" type="submit" value="save">
             </form>
         </div>

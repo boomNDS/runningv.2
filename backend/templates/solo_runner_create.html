@@ -22,9 +22,15 @@
             <form method="POST" action="{% url 'team' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
+                <h1>Runner</h1>
+                <center>
                 <table>
                     {{ formset }}
                 </table>
+<<<<<<< HEAD
+=======
+                </center>  
+>>>>>>> 94a41b89cc2865c49ed919ee0259be230df7d1f6
                 <input class="button is-primary is-outlined" type="submit" value="save">
             </form>
         </div>
