@@ -24,7 +24,7 @@ class Runner(models.Model):
     team_id = models.ForeignKey(
         "Team", on_delete=models.PROTECT, null=True, blank=True)
     def __str__(self):
-        return self.runner_firstname+ " "+ self.runner_lastname+ " " + self.sex
+        return self.runner_firstname+ " "+ self.runner_lastname
 
 
 class Driver(models.Model):
