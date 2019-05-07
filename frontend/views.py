@@ -17,10 +17,16 @@ authe = firebase.auth()
 db = firebase.database()
 # Create your views here.
 def certificate(request):
-    allimg = Certificate.objects.all()
+    test = RegisterInfo.objects.get(user_email=request.session.get('my_email', ''))
+    runner = Runner.objects.filter(regist_id=test)
+    allimgs = []
+    for i in runner:
+        allimgs.append(Certificate.objects.get(runner_bib=i))
     context = {
         'e': request.session.get('my_email', ''),
-        'allimg': allimg
+        'test': test,
+        'runner': runner,
+        'allimgs': allimgs,
     }
     return render(request, template_name='certificate.html', context=context)
 

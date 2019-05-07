@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="{% static 'bulma/css/bulma.min.css' %}">
     <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/v-img@latest/dist/v-img.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <title>Certificate</title>
@@ -15,20 +16,35 @@
 
 <body>
     {% include 'nav.html' %}
+    <div id="app">
     <div class="container">
         <div class="notification">
             <h1>Certificate</h1>
-            <div class="columns is-mobile is-centered ">
-                {% for i in allimg %}
+            <div class="columns is-multiline is-mobile is-centered ">
+                {% for i in allimgs%}
+                <div class="column is-4">
+                    <h2>{{i.runner_bib}}</h2>
+                    <img v-img:Certificate src="media/{{i.cer_url}}" alt="">
+                </div>
                 {% endfor %}
+
             </div>
         </div>
     </div>
+</div>
+<script>
+    new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app',})
+</script>
 </body>
 
 </html>
 <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
 <style>
+    h2{
+        font-size: 1.2rem;
+    }
     h1 {
         font-size: 1.5rem;
     }
