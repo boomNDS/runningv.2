@@ -19,6 +19,11 @@ class RunnerForm(forms.ModelForm):
             'team_id': forms.TextInput(attrs={'readonly': 'readonly'}),
             'regist_id': forms.TextInput(attrs={'readonly': 'readonly'}),
         }
+        def clean_age(self):
+            data = self.cleaned_data['age']
+            if int(data) < 1:
+                raise forms.ValidationError("กรุณาระบุอายุให้ถูกต้อง")
+            return data
 
 
 class ManagerForm(forms.ModelForm):
