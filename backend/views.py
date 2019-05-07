@@ -186,12 +186,16 @@ def team_for_runner_create_view(request):
                 instance =runner_form.save()
             form = ManagerForm(initial={'team_id': instance.team_id})
             diverForm = Driverform(initial={'team_id': instance.team_id})
+            
             context = {
                 'form': form,
                 'diverForm':diverForm,
                 'e': request.session.get('my_email', ''), 
             }
-        return render(request, 'manager_create.html', context)
+        if str(team_type) == 'team need runner':
+            return render(request, 'manager_create.html', context)
+        else:
+            return render(request, 'registerfinish.html')
 
     else:
         form = ManagerForm()
