@@ -34,7 +34,8 @@ def regist_create_view(request):
                 ])
                 context = {
                     'form': soloform,
-                    'formset':formset
+                    'formset':formset,
+                    'e': request.session.get('my_email', ''),
                 }
                 return render(request, 'solo_runner_create.html', context)
 
@@ -42,6 +43,7 @@ def regist_create_view(request):
                 form = Teamform()
                 context = {
                     'form': form,
+                    'e': request.session.get('my_email', ''),
                 }
                 return render(request, 'team_create.html', context)
 
@@ -136,7 +138,8 @@ def team_create_view(request):
                 ])
         context = {
         'formset': formset,
-        'team_type': str(team_type)
+        'team_type': str(team_type),
+        'e': request.session.get('my_email', ''),
         }
         return render(request, 'team_for_runner_create.html', context)
     else:
@@ -165,7 +168,8 @@ def team_create_view(request):
         ])
     context = {
         'form': form,
-        'formset': formset
+        'formset': formset,
+        'e': request.session.get('my_email', ''),
     }
     return render(request, 'team_for_runner_create.html', context)
 
@@ -184,14 +188,16 @@ def team_for_runner_create_view(request):
             diverForm = Driverform(initial={'team_id': instance.team_id})
             context = {
                 'form': form,
-                'diverForm':diverForm    
+                'diverForm':diverForm,
+                'e': request.session.get('my_email', ''), 
             }
         return render(request, 'manager_create.html', context)
 
     else:
         form = ManagerForm()
         context = {
-            'form': '',    
+            'form': '',
+            'e': request.session.get('my_email', ''),
             }
         return render(request, 'manager_create.html', context)
 
@@ -212,6 +218,10 @@ def solo_runner_create_view(request):
                     instance =   runner_form.save()
                     solo.runner_bib = instance
                     solo.save()
+                context = {
+                    'e': request.session.get('my_email', ''),
+                    'payment': RegisterInfo.objects.get(user_email=request.session.get('my_email', '')) 
+                }
                 return render(request, 'registerfinish.html')
 
     else:
