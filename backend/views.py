@@ -194,16 +194,8 @@ def team_create_view(request):
 
 
 def team_for_runner_create_view(request):
-<<<<<<< HEAD
-    if(request.method == 'POST'):
-        if str(team_type) == 'team need runner':
-            RunnerFormSet = formset_factory(RunnerForm, extra=7)
-        else:
-            RunnerFormSet = formset_factory(RunnerForm, extra=0)
-=======
     if(request.method=='POST'):
         RunnerFormSet = formset_factory(RunnerForm, extra=0)
->>>>>>> 6aa43eb6584dcf1b717985c87df60031c8562fad
         formset = RunnerFormSet(request.POST)
         if formset.is_valid():
             for runner_form in formset:
