@@ -103,7 +103,7 @@ class RegisterInfo(models.Model):
     event_id = models.ForeignKey(
         "Event", on_delete=models.PROTECT, null=False, blank=False)
     running_type_id = models.ForeignKey("RunningType", on_delete=models.PROTECT, null=False, blank=False)
-    user_email = models.EmailField(max_length=254, unique=True)
+    user_email = models.EmailField(max_length=254)
     STATUS = (
         ('Not paid', 'ยังไม่ได้ชำระเงิน'),
         ('Pending', 'รอการตรวจสอบ'),
