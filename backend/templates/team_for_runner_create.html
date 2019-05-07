@@ -18,21 +18,21 @@
     <div class="container">
         <div class="notification">
             {% if team_type %}
-                <h1>{{ team_type|capfirst }}</h1>
+            <h1>{{ team_type|capfirst }}</h1>
             {% else %}
-                <h1>Team</h1>
+            <h1>Team</h1>
             {% endif %}
             <form method="POST" action="{% url 'team_for_runner' %}">
                 {% csrf_token %}
                 {% if formset %}
-                    {{ formset.management_form }}
-                    <div class="columns is-multiline is-mobile" style="text-align: left">
-                        {% for form in formset %}
-                            <div class="column is-half">
-                                {{ form.as_p }}
-                            </div>
-                        {% endfor %}
+                {{ formset.management_form }}
+                <div class="columns is-multiline is-mobile" style="text-align: left">
+                    {% for form in formset %}
+                    <div class="column is-half">
+                        {{ form.as_p }}
                     </div>
+                    {% endfor %}
+                </div>
                 {% endif %}
                 <input class="button is-primary is-outlined" type="submit" value="save">
             </form>
