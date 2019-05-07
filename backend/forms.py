@@ -13,13 +13,21 @@ class RunnerForm(forms.ModelForm):
 
      class Meta:
         model = Runner
-        fields = '__all__'
+        exclude = []
+        # exclude = ['team_id','regist_id']
+        widgets = {
+            'team_id': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'regist_id': forms.TextInput(attrs={'readonly': 'readonly'}),
+        }
 
 
 class ManagerForm(forms.ModelForm):
      class Meta:
         model = Manager
-        fields = '__all__'
+        exclude = []
+        widgets = {
+            'team_id': forms.TextInput(attrs={'readonly': 'readonly'}),
+        }
 
 
 class Teamform(forms.ModelForm):
@@ -35,4 +43,8 @@ class SoloRunnerform(forms.ModelForm):
 class Driverform(forms.ModelForm):
     class Meta:
         model = Driver
-        exclude = ['team_id']
+        # exclude = ['team_id']
+        exclude = []
+        widgets = {
+            'team_id': forms.TextInput(attrs={'readonly': 'readonly'}),
+        }

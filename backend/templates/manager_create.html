@@ -21,6 +21,8 @@
             <form method="POST" action="{% url 'manager' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
+            <h1>Driver</h1>
+                {{ diverForm.as_p }}
                 <input class="button is-primary is-outlined" type="submit" value="save">
             </form>
         </div>

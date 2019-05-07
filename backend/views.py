@@ -88,31 +88,40 @@ def team_create_view(request):
         if(form.is_valid):
             instance =  form.save()
             team_type = form.cleaned_data['team_type']
+            registinfo = RegisterInfo.objects.get(user_email= request.session['my_email'])
             if str(team_type) == 'team need runner':
                 RunnerFormSet = formset_factory(RunnerForm, extra=7)
                 formset = RunnerFormSet(initial=[
                 {
                     'team_id': instance.pk,
+                    'regist_id': registinfo.pk,
                 }, {
                     'team_id': instance.pk,
+                    'regist_id': registinfo.pk,
                     
                 }, {
                     'team_id': instance.pk,
+                    'regist_id': registinfo.pk,
                     
                 }, {
                     'team_id': instance.pk,
+                    'regist_id': registinfo.pk,
                     
                 }, {
                     'team_id': instance.pk,
+                    'regist_id': registinfo.pk,
                     
                 }, {
                     'team_id': instance.pk,
+                    'regist_id': registinfo.pk,
                     
                 }, {
                     'team_id': instance.pk,
+                    'regist_id': registinfo.pk,
                     
                 }, {
                     'team_id': instance.pk,
+                    'regist_id': registinfo.pk,
                     
                 }
                 ])
@@ -121,6 +130,7 @@ def team_create_view(request):
                 formset = RunnerFormSet(initial=[
                 {
                     'team_id': instance.pk,
+                    'regist_id': registinfo.pk,
                 }
                 ])
         context = {
@@ -134,6 +144,7 @@ def team_create_view(request):
         registinfo = RegisterInfo.objects.get(user_email= request.session('my_email'))
         formset = RunnerFormSet(initial=[
             {
+                'regist_id': registinfo.pk,
                 'regist_id': registinfo.pk,
             }, {
                 'regist_id': registinfo.pk,
@@ -167,13 +178,21 @@ def team_for_runner_create_view(request):
         formset = RunnerFormSet(request.POST)
         if formset.is_valid():
             for runner_form in formset:
-                runner_form.save()
-            form = ManagerForm()
-        
+                instance =runner_form.save()
+            form = ManagerForm(initial={'team_id': instance.team_id})
+            diverForm = Driverform(initial={'team_id': instance.team_id})
             context = {
-        '       form': form,    
+                'form': form,
+                'diverForm':diverForm    
             }
-    return render(request, 'manager_create.html', context)
+        return render(request, 'manager_create.html', context)
+
+    else:
+        form = ManagerForm()
+        context = {
+            'form': '',    
+            }
+        return render(request, 'manager_create.html', context)
 
 
 
