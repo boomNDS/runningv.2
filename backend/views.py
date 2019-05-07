@@ -93,7 +93,7 @@ def team_create_view(request):
             team_type = form.cleaned_data['team_type']
             registinfo = RegisterInfo.objects.get(user_email= request.session['my_email'])
             if str(team_type) == 'team need runner':
-                RunnerFormSet = formset_factory(RunnerForm, extra=7)
+                RunnerFormSet = formset_factory(RunnerForm, extra=0)
                 formset = RunnerFormSet(initial=[
                 {
                     'team_id': instance.pk,
@@ -176,10 +176,7 @@ def team_create_view(request):
 
 def team_for_runner_create_view(request):
     if(request.method=='POST'):
-        if str(team_type) == 'team need runner':
-             RunnerFormSet = formset_factory(RunnerForm, extra=7)
-        else:
-             RunnerFormSet = formset_factory(RunnerForm, extra=0)
+        RunnerFormSet = formset_factory(RunnerForm, extra=0)
         formset = RunnerFormSet(request.POST)
         if formset.is_valid():
             for runner_form in formset:
