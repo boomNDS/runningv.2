@@ -20,6 +20,11 @@
             <a href="{% url 'live' %}" class="navbar-item">
                 Live
             </a>
+            {% if e %}
+            <a href="{% url 'certificate' %}" class="navbar-item">
+                Certificate
+            </a>
+            {% endif %}
         </div>
 
         <div class="navbar-end">
@@ -27,11 +32,11 @@
                 <div class="buttons">
                     {% if e %}
                     <p style="margin: 5px;">{{e}}</p>
-                    <button class="button is-danger is-outlined" type="button"
+                    <button class="button is-danger is-inverted is-outlined" type="button"
                         onclick="location.href='{% url 'log' %}'">Logout</button>
-                    <a href="{% url 'editme' %}" class="button is-success is-outlined">Edit</a>
+                    <a href="{% url 'editme' %}" class="button is-success is-inverted is-outlined">Edit</a>
                     {% else %}
-                    <a href="{% url 'signin' %}" class="button is-success is-outlined">Sign in</a>
+                    <a href="{% url 'signin' %}" class="button is-success is-inverted is-outlined">Sign in</a>
                     {% endif %}
                 </div>
             </div>

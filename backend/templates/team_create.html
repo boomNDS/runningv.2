@@ -18,27 +18,28 @@
     <div class="container">
         <div class="notification">
             {% if team_type %}
-                <h1>{{ team_type|capfirst }}</h1>
+            <h1>{{ team_type|capfirst }}</h1>
             {% else %}
-                <h1>Team</h1>
+            <h1>Team</h1>
             {% endif %}
-            
+
             <form method="POST" action="{% url 'team' %}">
                 {% csrf_token %}
-                
+
                 {% if form.as_p %}
-                    {{ form.as_p }}
-                
+                {{ form.as_p }}
+
                 {% endif %}
                 {% if formset %}
-                    {{ formset.management_form }}
-                    <div class="columns is-multiline is-mobile" style="text-align: left">
-                        {% for form in formset %}
-                            <div class="column is-half">
-                                {{ form.as_p }}
-                            </div>
-                        {% endfor %}
+                {{ formset.management_form }}
+                <div class="columns is-multiline is-mobile" style="text-align: left">
+                    {% for form in formset %}
+                    <h1>นักวิ่งคนที่ {{ forloop.counter }}</h1>
+                    <div class="column is-half">
+                        {{ form.as_p }}
                     </div>
+                    {% endfor %}
+                </div>
                 {% endif %}
                 <input class="button is-primary is-outlined" type="submit" value="save">
             </form>
@@ -62,6 +63,7 @@
         color: #232323;
         text-align: center;
     }
+
     body {
         background: #af2f30;
         min-height: 100vh;
