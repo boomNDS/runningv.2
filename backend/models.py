@@ -20,6 +20,7 @@ class Runner(models.Model):
         ('female', 'Female'),
     )
     sex = models.CharField(choices=SEX, max_length=50)
+    age = models.IntegerField(default=0, null=False, blank=False)
     team_id = models.ForeignKey(
         "Team", on_delete=models.PROTECT, null=True, blank=True)
     def __str__(self):
@@ -50,7 +51,7 @@ class Event(models.Model):
     e_locations = models.TextField()
 
     def __str__(self):
-        return "%s %s" % (self.event_name, self.e_date)
+        return "%s" % (self.event_name)
 
 class CheckPoint(models.Model):
     round_no = models.IntegerField()
@@ -102,7 +103,7 @@ class RegisterInfo(models.Model):
     event_id = models.ForeignKey(
         "Event", on_delete=models.PROTECT, null=False, blank=False)
     running_type_id = models.ForeignKey("RunningType", on_delete=models.PROTECT, null=False, blank=False)
-    user_email = models.EmailField(max_length=254)
+    user_email = models.EmailField(max_length=254, unique=True)
     STATUS = (
         ('Not paid', 'ยังไม่ได้ชำระเงิน'),
         ('Pending', 'รอการตรวจสอบ'),

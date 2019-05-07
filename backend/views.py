@@ -111,7 +111,7 @@ def team_create_view(request):
             registinfo = RegisterInfo.objects.get(
                 user_email=request.session['my_email'])
             if str(team_type) == 'team need runner':
-                RunnerFormSet = formset_factory(RunnerForm, extra=7)
+                RunnerFormSet = formset_factory(RunnerForm, extra=0)
                 formset = RunnerFormSet(initial=[
                     {
                         'team_id': instance.pk,
@@ -194,23 +194,32 @@ def team_create_view(request):
 
 
 def team_for_runner_create_view(request):
+<<<<<<< HEAD
     if(request.method == 'POST'):
         if str(team_type) == 'team need runner':
             RunnerFormSet = formset_factory(RunnerForm, extra=7)
         else:
             RunnerFormSet = formset_factory(RunnerForm, extra=0)
+=======
+    if(request.method=='POST'):
+        RunnerFormSet = formset_factory(RunnerForm, extra=0)
+>>>>>>> 6aa43eb6584dcf1b717985c87df60031c8562fad
         formset = RunnerFormSet(request.POST)
         if formset.is_valid():
             for runner_form in formset:
                 instance = runner_form.save()
             form = ManagerForm(initial={'team_id': instance.team_id})
             diverForm = Driverform(initial={'team_id': instance.team_id})
+            
             context = {
                 'form': form,
                 'diverForm': diverForm,
                 'e': request.session.get('my_email', ''),
             }
-        return render(request, 'manager_create.html', context)
+        if str(team_type) == 'team need runner':
+            return render(request, 'manager_create.html', context)
+        else:
+            return render(request, 'registerfinish.html')
 
     else:
         form = ManagerForm()
