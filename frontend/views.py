@@ -16,6 +16,13 @@ firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 db = firebase.database()
 # Create your views here.
+def certificate(request):
+    allimg = Certificate.objects.all()
+    context = {
+        'e': request.session.get('my_email', ''),
+        'allimg': allimg
+    }
+    return render(request, template_name='certificate.html', context=context)
 
 def live(request):
     live = Runner_Checkpoint.objects.all()
