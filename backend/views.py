@@ -23,16 +23,78 @@ def index(request):
     return render(request, template_name='aindex.html', context=context)
 
 
+
+def edit_regist_view(request):
+    if request.method == 'GET':
+        regist = RegisterInfo.objects.get(user_email=request.session['my_email'])
+        form = RegisterForm(initial={
+                    'user_email': getattr(regist, 'user_email'),
+                    'event_id':getattr(regist, 'event_id'),
+                    'running_type_id': getattr(regist, 'running_type_id'),
+                    'payment_date':getattr(regist, 'payment_date'),
+                    'pay_inSlip': getattr(regist, 'pay_inSlip'),
+                    })
+        context = {
+                    'form': form,
+                    'e': request.session.get('my_email', ''),
+                }
+        return render(request, 'edit_regist.html', context)
+
+    elif request.method == 'POST':
+        regist = RegisterInfo.objects.get(
+            user_email=request.session['my_email'])
+        form = RegisterForm(request.POST, instance=regist)
+        if form.is_valid:
+            # update record
+            instance = form.save()
+            running_type_id = form.cleaned_data['running_type_id']
+            # edit solo runner
+            if(str(running_type_id) == 'solo runner'):
+                    runner = Runner.objects.get(regist_id=regist.pk)
+                    solo_runner = SoloRunner.objects.get(runner_bib=runner.pk)
+                    soloform = SoloRunnerform(
+                        initial={
+                            'bus': getattr(solo_runner, 'bus'),
+                            'resident':getattr(solo_runner, 'resident'),
+                            'runner_bib': getattr(solo_runner, 'runner_bib'),
+                        }
+                    )
+                    RunnerFormSet = formset_factory(RunnerForm, extra=0)
+                    formset = RunnerFormSet(initial=[
+                        {
+                            'regist_id': instance.pk,
+                            'size': getattr(runner, 'size'),
+                            'runner_firstname': getattr(runner, 'runner_firstname'),
+                            'runner_lastname': getattr(runner, 'runner_lastname'),
+                            'sex': getattr(runner, 'sex'),
+                            'age': getattr(runner, 'age')
+                        }
+                    ])
+                    context = {
+                        'form': soloform,
+                        'formset': formset,
+                        'e': request.session.get('my_email', ''),
+                    }
+                    return render(request, 'solo_runner_create.html', context)
+
+            
+        return render(request, 'edit_regist.html')
+
+            
+
+
+
 def regist_create_view(request):
     if RegisterInfo.objects.filter(user_email=request.session.get('my_email', '')).exists():
         context = {
-            'e': request.session.get('my_email', ''),
-            'payment': RegisterInfo.objects.get(user_email=request.session.get('my_email', '')),
-            # 'isregis': RegisterInfo.objects.filter(user_email=request.session.get('my_email', '')).exists()
-        }
+                'e': request.session.get('my_email', ''),
+                'payment': RegisterInfo.objects.get(user_email=request.session.get('my_email', '')),
+                # 'isregis': RegisterInfo.objects.filter(user_email=request.session.get('my_email', '')).exists()
+            }
+
         return render(request, template_name='registerfinish.html', context=context)
-    else:
-        if(request.method == 'POST'):
+    
+    elif request.method == 'POST':
             form = RegisterForm(request.POST)
             if(form.is_valid):
                 instance = form.save()
@@ -60,8 +122,8 @@ def regist_create_view(request):
                     }
                     return render(request, 'team_create.html', context)
 
-        else:
-            form = RegisterForm(initial={
+    else:   
+        form = RegisterForm(initial={
                 'user_email': request.session['my_email']
             })
         context = {
@@ -223,41 +285,75 @@ def team_for_runner_create_view(request):
 
 
 def solo_runner_create_view(request):
-    RunnerFormSet = formset_factory(RunnerForm, extra=0)
-    if(request.method == 'POST'):
-        form = SoloRunnerform(request.POST)
-        formset = RunnerFormSet(request.POST)
-        if(form.is_valid):
-            solo = form.save(commit=False)
+    
+    # for update chelk if already have runner in this regist
+    if Runner.objects.filter(regist_id=RegisterInfo.objects.get(user_email=request.session['my_email']).pk).exists():
+        regist = RegisterInfo.objects.get(user_email=request.session['my_email'])
+        runner = Runner.objects.get(regist_id=regist.pk)
+        solo_runner = SoloRunner.objects.get(runner_bib=runner.pk)
+        form = SoloRunnerform(request.POST, instance=solo_runner)
+        
+        if form.is_valid:
+            # update record
+            #this is solorunner
+            form.save()
+            # this is runner
+            # RunnerFormSet = formset_factory(RunnerForm, extra=0)
             RunnerFormSet = formset_factory(RunnerForm, extra=0)
             formset = RunnerFormSet(request.POST)
+ 
             if formset.is_valid():
                 for runner_form in formset:
-                    instance = runner_form.save()
-                    solo.runner_bib = instance
-                    solo.save()
+                    runner.runner_firstname  = runner_form.cleaned_data['runner_firstname']
+                    runner.size = runner_form.cleaned_data['size']
+                    runner.age = runner_form.cleaned_data['age']
+                    runner.runner_lastname = runner_form.cleaned_data['runner_lastname']
+                    runner.regist_id = runner_form.cleaned_data['regist_id']
+                    runner.sex = runner_form.cleaned_data['sex']
+                    runner.save()
                 context = {
-                    'e': request.session.get('my_email', ''),
-                    'payment': RegisterInfo.objects.get(user_email=request.session.get('my_email', '')),
-                }
+                        'e': request.session.get('my_email', ''),
+                        'payment': RegisterInfo.objects.get(user_email=request.session.get('my_email', '')),
+                    }
                 return render(request, template_name='registerfinish.html', context=context)
-
-    else:
-        form = SoloRunnerform()
+    else:    
         RunnerFormSet = formset_factory(RunnerForm, extra=0)
-        registinfo = RegisterInfo.objects.get(
-            user_email=request.session('my_email'))
-        formset = RunnerFormSet(initial=[
-            {
-                'regist_id': registinfo.pk,
-            }
-        ])
-    context = {
-        'form': form,
-        'formset': formset,
-        'e': request.session.get('my_email', ''),
-    }
-    return render(request, 'solo_runner_create.html', context)
+        if(request.method == 'POST'):
+            form = SoloRunnerform(request.POST)
+            formset = RunnerFormSet(request.POST)
+            if(form.is_valid):
+                solo = form.save(commit=False)
+                RunnerFormSet = formset_factory(RunnerForm, extra=0)
+                formset = RunnerFormSet(request.POST)
+
+            # runner have to be saved before solo becasuse solorunner need pk from runner that have to be saved in DB
+                if formset.is_valid():
+                    for runner_form in formset:
+                        instance = runner_form.save()
+                        solo.runner_bib = instance
+                        solo.save()
+                    context = {
+                        'e': request.session.get('my_email', ''),
+                        'payment': RegisterInfo.objects.get(user_email=request.session.get('my_email', '')),
+                    }
+                    return render(request, template_name='registerfinish.html', context=context)
+
+        else:
+            form = SoloRunnerform()
+            RunnerFormSet = formset_factory(RunnerForm, extra=0)
+            registinfo = RegisterInfo.objects.get(
+                user_email=request.session('my_email'))
+            formset = RunnerFormSet(initial=[
+                {
+                    'regist_id': registinfo.pk,
+                }
+            ])
+        context = {
+            'form': form,
+            'formset': formset,
+            'e': request.session.get('my_email', ''),
+        }
+        return render(request, 'solo_runner_create.html', context)
 
 
 def driver_create_view(request):

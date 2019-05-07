@@ -97,7 +97,7 @@ class SoloRunner(models.Model):
     runner_bib = models.ForeignKey("Runner", on_delete=models.PROTECT , null = False)
     
 class RegisterInfo(models.Model):
-    payment_date = models.DateField(auto_now=False, auto_now_add=False)
+    payment_date = models.DateField(auto_now=False, auto_now_add=False, null =True, blank = True)
     pay_inSlip = models.ImageField(upload_to='pay_inSlip/%Y %m %D', height_field=None,
                                    width_field=None, max_length=None, null=True, blank=True)
     event_id = models.ForeignKey(
