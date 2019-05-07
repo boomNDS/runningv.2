@@ -50,7 +50,7 @@ class Event(models.Model):
     e_locations = models.TextField()
 
     def __str__(self):
-        return "%s %s" % (self.event_name, self.e_date)
+        return "%s" % (self.event_name)
 
 class CheckPoint(models.Model):
     round_no = models.IntegerField()
