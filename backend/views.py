@@ -76,8 +76,17 @@ def edit_regist_view(request):
                         'e': request.session.get('my_email', ''),
                     }
                     return render(request, 'solo_runner_create.html', context)
-
-            
+            else:
+                # just throw to regist but still need to implement
+                form = Teamform()
+                context = {
+                    'form': form,
+                    'e': request.session.get('my_email', ''),
+                }
+                return render(request, 'team_create.html', context)
+                
+                
+        # when edit fail just do it again
         return render(request, 'edit_regist.html')
 
             
@@ -269,6 +278,7 @@ def team_for_runner_create_view(request):
                 'form': form,
                 'diverForm': diverForm,
                 'e': request.session.get('my_email', ''),
+                'payment': "Not paid"
             }
         if str(team_type) == 'team need runner':
             return render(request, 'manager_create.html', context)
