@@ -7,6 +7,7 @@ def registerfinish(request):
 
     context = {
         'e': request.session.get('my_email', ''),
+        'payment': RegisterInfo.objects.get(user_email=request.session.get('my_email', '')) 
     }
     return render(request, template_name='registerfinish.html', context=context)
 
