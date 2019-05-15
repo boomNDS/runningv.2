@@ -133,11 +133,12 @@ class Runner_Checkpoint(models.Model):
         return "%s %s" % (self.runner_bib, self.checkpoint_no)
 
 class competition_results(models.Model):
-    team = models.ForeignKey("Team", on_delete=models.CASCADE)
     checkpoint_no = models.ForeignKey(
         "CheckPoint", on_delete=models.CASCADE)
     start_time = models.DateTimeField(auto_now=False, auto_now_add=False)
     end_time = models.DateTimeField(auto_now=False, auto_now_add=False)
+    regist_id = models.ForeignKey(
+        "RegisterInfo", on_delete=models.PROTECT, null=True, blank=True)
     #surrogate keys
 
     def __str__(self):

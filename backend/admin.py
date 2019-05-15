@@ -4,11 +4,11 @@ from .models import *
 # Register your models here.
 
 class CompetitionAdmin(admin.ModelAdmin):
-    list_display = ['id', 'team', 'checkpoint_no', 'start_time','end_time']
+    list_display = ['id', 'regist_id', 'checkpoint_no', 'start_time','end_time']
     list_per_page = 10
 
-    list_filter = ['team','checkpoint_no']
-    search_fields = ['team','checkpoint_no']
+    list_filter = ['regist_id', 'checkpoint_no']
+    search_fields = ['regist_id', 'checkpoint_no']
 admin.site.register(competition_results,CompetitionAdmin)
 class CheckPointAdmin(admin.ModelAdmin):
     list_display = ['id', 'round_no', 'lap_distant', 'place','total_distant']
