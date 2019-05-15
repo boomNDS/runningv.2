@@ -142,7 +142,7 @@ class competition_results(models.Model):
     #surrogate keys
 
     def __str__(self):
-        return "%s %s" % (self.team, self.checkpoint_no)
+        return "%s" % (self.checkpoint_no)
 
 class News(models.Model):
     eng_content = models.TextField()
