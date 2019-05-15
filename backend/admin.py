@@ -9,7 +9,7 @@ class CompetitionAdmin(admin.ModelAdmin):
 
     list_filter = ['regist_id', 'checkpoint_no']
     search_fields = ['regist_id', 'checkpoint_no']
-admin.site.register(competition_results,CompetitionAdmin)
+admin.site.register(CompetitionResultsInformation,CompetitionAdmin)
 class CheckPointAdmin(admin.ModelAdmin):
     list_display = ['id', 'round_no', 'lap_distant', 'place','total_distant']
     list_per_page = 10
