@@ -132,7 +132,7 @@ class Runner_Checkpoint(models.Model):
     def __str__(self):
         return "%s %s" % (self.runner_bib, self.checkpoint_no)
 
-class competition_results(models.Model):
+class CompetitionResultsInformation(models.Model):
     checkpoint_no = models.ForeignKey(
         "CheckPoint", on_delete=models.CASCADE)
     start_time = models.DateTimeField(auto_now=False, auto_now_add=False)
