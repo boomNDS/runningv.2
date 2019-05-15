@@ -10,6 +10,7 @@ urlpatterns = [
     path('regis', views.regis, name='regis'),
     path('live', views.live, name='live'),
     path('certificate', views.certificate, name='certificate'),
+    path('competitions/', views.competition_result, name='competitions'),
     url(r'^postsign/', views.postsign),
     url(r'^signup/', views.signup, name='signup'),
     url(r'^postsignup/', views.postsignup, name='postsignup'),

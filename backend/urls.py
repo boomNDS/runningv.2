@@ -15,6 +15,7 @@ urlpatterns = [
          name='team_for_runner'),
     path('edit_regist/', views.edit_regist_view, name='edit_regist'),
     
+    
 
 
 ]

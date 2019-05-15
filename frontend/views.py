@@ -16,6 +16,15 @@ firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 db = firebase.database()
 # Create your views here.
+
+def competition_result(request):
+
+    context = {
+        'e': request.session.get('my_email', ''),
+        'competitions': competition_results.objects.all(),
+        # 'isregis': RegisterInfo.objects.filter(user_email=request.session.get('my_email', '')).exists()
+    }
+    return render(request, template_name='competitions.html', context=context)
 def certificate(request):
     test = RegisterInfo.objects.get(user_email=request.session.get('my_email', ''))
     runner = Runner.objects.filter(regist_id=test)
