@@ -164,6 +164,7 @@ def manager_create_view(request):
             form.save()
         context = {
         'e': request.session.get('my_email', ''),
+            'payment': RegisterInfo.objects.get(user_email=request.session.get('my_email', '')),
     }
         return render(request, 'registerfinish.html', context)
     else:

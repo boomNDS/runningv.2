@@ -21,7 +21,7 @@ def competition_result(request):
 
     context = {
         'e': request.session.get('my_email', ''),
-        'competitions': competition_results.objects.all(),
+        'competitions': CompetitionResultsInformation.objects.all(),
         # 'isregis': RegisterInfo.objects.filter(user_email=request.session.get('my_email', '')).exists()
     }
     return render(request, template_name='competitions.html', context=context)
