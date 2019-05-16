@@ -162,16 +162,19 @@ def manager_create_view(request):
         form = ManagerForm(request.POST)
         if(form.is_valid):
             form.save()
+        context = {
+        'e': request.session.get('my_email', ''),
+    }
+        return render(request, 'registerfinish.html', context)
     else:
         form = ManagerForm()
-    context = {
+        context = {
         'form': form,
         'e': request.session.get('my_email', ''),
     }
-    return render(request, 'manager_create.html', context)
+        return render(request, 'manager_create.html', context)
 
 
-team_type = ""
 
 
 def team_create_view(request):
@@ -179,10 +182,10 @@ def team_create_view(request):
         form = Teamform(request.POST)
         if(form.is_valid):
             instance = form.save()
-            team_type = form.cleaned_data['team_type']
+            Variable.team_type = form.cleaned_data['team_type']
             registinfo = RegisterInfo.objects.get(
                 user_email=request.session['my_email'])
-            if str(team_type) == 'team need runner':
+            if str(Variable.team_type) == 'team need runner':
                 RunnerFormSet = formset_factory(RunnerForm, extra=0)
                 formset = RunnerFormSet(initial=[
                     {
@@ -218,6 +221,13 @@ def team_create_view(request):
 
                     }
                 ])
+                context = {
+                    'formset': formset,
+                    'team_type': str(Variable.team_type),
+                    'e': request.session.get('my_email', ''),
+                }
+                return render(request, 'team_for_runner_create.html', context)
+                
             else:
                 RunnerFormSet = formset_factory(RunnerForm, extra=0)
                 formset = RunnerFormSet(initial=[
@@ -228,7 +238,7 @@ def team_create_view(request):
                 ])
         context = {
             'formset': formset,
-            'team_type': str(team_type),
+            'team_type': str(Variable.team_type),
             'e': request.session.get('my_email', ''),
         }
         return render(request, 'team_for_runner_create.html', context)
@@ -266,6 +276,9 @@ def team_create_view(request):
 
 
 def team_for_runner_create_view(request):
+    # just declare variable
+    context = {}
+
     if(request.method=='POST'):
         RunnerFormSet = formset_factory(RunnerForm, extra=0)
         formset = RunnerFormSet(request.POST)
@@ -281,7 +294,8 @@ def team_for_runner_create_view(request):
                 'e': request.session.get('my_email', ''),
                 'payment': RegisterInfo.objects.get(user_email=request.session.get('my_email', '')),
             }
-        if str(team_type) == 'team need runner':
+
+        if str(Variable.team_type) == 'team need runner':
             return render(request, 'manager_create.html', context)
         else:
             return render(request, 'registerfinish.html')
@@ -380,3 +394,8 @@ def driver_create_view(request):
 
     }
     return render(request, 'driver_create.html', context)
+
+
+
+class Variable():
+    team_type = ""
